@@ -14,36 +14,10 @@
 </head>
 <body>
 <!-- 头部 -->
-
 <jsp:include page="../commons/head.jsp"></jsp:include>
-
+<!-- 左边菜单 -->
+<jsp:include page="../commons/leftList.jsp"></jsp:include>
 <div class="content">
-
-    <!-- 左边菜单 -->
-
-    <div class="sidebar">
-        <div class="sidebar-dropdown">
-            <a href="#">导航</a>
-        </div>
-
-        <ul id="nav">
-            <li>
-                <a href="#" class="open"><i class="icon-home"></i> 首页</a>
-
-            </li>
-
-            <li >
-                <a href="http://localhost:8080/library/admin/booklist"><i class="icon-building"></i> 图书管理 </a>
-            </li>
-            <li>
-                <a href="http://localhost:8080/library/admin/findAllStu"><i class="icon-user"></i>用户管理</a>
-            </li>
-            <li>
-                <a href="http://localhost:8080/library/admin/allBorrowbooks"><i class="icon-user"></i>借阅信息</a>
-            </li>
-        </ul>
-    </div>
-
     <!-- 内容 -->
     <div class="mainbar">
         <div class="page-head">

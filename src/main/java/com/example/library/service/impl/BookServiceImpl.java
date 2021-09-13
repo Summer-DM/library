@@ -18,8 +18,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void deleteBookById(int bid) {
-        bDao.deleteBookById(bid);
+    public int deleteBookById(int bid) {
+        return bDao.deleteBookById(bid);
     }
 
     @Override

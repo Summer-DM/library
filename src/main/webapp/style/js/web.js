@@ -36,11 +36,11 @@ function register(){
 				})
 			}
 			
-			function dologin(){
+			function toIndex(){
 				var username=$("#login-username").val();//获取登录账号信息
 				var password=$("#login-password").val();//获取登录密码
 				$.ajax({
-					url:"dologin",
+					url:"toIndex",
 					data:{"email":username,"password":password},
 					success:function(data){
 						if(data=="success"){

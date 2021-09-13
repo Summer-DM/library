@@ -11,55 +11,19 @@
     <!-- Title and other stuffs -->
     <title>首页</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <jsp:include page="../commons/css.jsp"></jsp:include>
-
-
-
-
-
 </head>
 <body>
 <!-- 头部 -->
-<jsp:include page="../commons/head.jsp"></jsp:include>
-
+<jsp:include page="../commons/stuhead.jsp"></jsp:include>
+<!-- 左边菜单 -->
+<jsp:include page="../commons/leftList.jsp"></jsp:include>
 
 <div class="content">
-
-    <!-- 左边菜单 -->
-    <div class="sidebar">
-        <div class="sidebar-dropdown">
-            <a href="#">导航</a>
-        </div>
-
-        <ul id="nav">
-            <li>
-                <a href="#" class="open"><i class="icon-home"></i> 首页</a>
-
-            </li>
-
-            <li >
-                <a href="http://localhost:8080/library/admin/booklist"><i class="icon-building"></i> 图书管理 </a>
-            </li>
-
-
-            <li>
-                <a href="http://localhost:8080/library/admin/findAllStu"><i class="icon-user"></i>用户管理</a>
-            </li>
-            <li>
-                <a href="http://localhost:8080/library/admin/allBorrowbooks"><i class="icon-user"></i>借阅信息</a>
-            </li>
-        </ul>
-    </div>
-
-
     <!-- 内容 -->
     <div class="mainbar">
         <div class="page-head">
             <h2 class="pull-left"><i class="icon-home"></i> 首页</h2>
-            <div class="bread-crumb pull-right">
-                <a href="http://localhost:8080/library/admin/addbookUI" class="btn btn-active"> 添加图书</a>
-            </div>
             <div class="clearfix"></div>
         </div>
 
@@ -99,16 +63,20 @@
                                             <td>${book.publicationdate }</td>
                                             <td>${book.price }</td>
                                             <c:if test="${book.state eq '1'}">
-                                            <td>未借阅</td>
+                                                <td>未借阅</td>
                                             </c:if>
-                                             <c:if test="${book.state eq '2'}">
-                                            <td>已借阅</td>
+                                            <c:if test="${book.state eq '2'}">
+                                                <td>已借阅</td>
                                             </c:if>
-
                                             <td>${book.comment }</td>
+                                            <c:if test="${book.state eq '1'}">
                                             <td>
-                                                <a  class="btn btn-active" href="delete?bid=${book.bid }">删除</a>
+                                                <a  class="btn btn-active" href="http://localhost:8080/library/borrow/borrowbook?bookname=${book.bookname}&bid=${book.bid}">借阅</a>
                                             </td>
+                                            </c:if>
+                                            <c:if test="${book.state eq '2'}">
+                                                <td>已借阅</td>
+                                            </c:if>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -131,5 +99,8 @@
 <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
 
 </body>
+<script>
+
+</script>
 
 </html>

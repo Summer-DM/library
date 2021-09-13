@@ -1,7 +1,6 @@
 package com.example.library.dao;
 
 import com.example.library.model.User;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -14,4 +13,6 @@ public interface UserDao {
     void addUser(User user);
 
     List<User> findAllStu();
+
+    int deleteUser(int id);
 }

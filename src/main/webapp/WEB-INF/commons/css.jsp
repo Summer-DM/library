@@ -5,6 +5,7 @@
 <link href="<%=request.getContextPath()%>/style/admin/style/bootstrap.css" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/style/admin/style/font-awesome.css">
 <link href="<%=request.getContextPath()%>/style/admin/style/style.css" rel="stylesheet">
+<%--<link href="<%=request.getContextPath()%>/style/layui/css/layui.css" rel="stylesheet">--%>
 
 <!-- 公共js -->
 <!--  <script type="text/javascript" src="http://localhost:8080/Space/admin/js/jquery-3.1.1.min.js"></script> -->
@@ -12,6 +13,7 @@
 <script src="<%=request.getContextPath()%>/style/admin/js/bootstrap.js"></script>
 
 <script src="<%=request.getContextPath()%>/style/admin/js/custom.js"></script>
+<%--<script src="<%=request.getContextPath()%>/style/layui/layui.js"></script>--%>
 
 
 		<!--导入系统信息样式-->

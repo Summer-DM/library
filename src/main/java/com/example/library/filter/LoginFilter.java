@@ -32,7 +32,10 @@ public class LoginFilter implements Filter {
             chain.doFilter(hsr, hsp);//合法，放行
         }
         //判断访问路径是否符合逻辑
-        if (url.equals(projectName + "/admin/login") || url.equals(projectName + "/admin/dologin") || url.equals(projectName + "/admin/regist") || url.equals(projectName + "/admin/toregist")) {//判断请求地址是否合法
+        if (url.equals(projectName + "/admin/login")
+                || url.equals(projectName + "/admin/toIndex")
+                || url.equals(projectName + "/admin/regist")
+                || url.equals(projectName + "/admin/toregist")) {//判断请求地址是否合法
             chain.doFilter(hsr, hsp);//合法，放行
             return;
         } else {//不合法，判断是否已登陆过

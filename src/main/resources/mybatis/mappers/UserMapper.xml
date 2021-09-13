@@ -12,4 +12,7 @@
     <insert id="addUser">
         insert into user(username,sex,tel,institute,profession,classname,stuid,password) values (#{username},#{sex},#{tel},#{institute},#{profession},#{classname},#{stuid},#{password})
     </insert>
+    <delete id="deleteUser">
+        delete from user where id=#{id}
+    </delete>
 </mapper>

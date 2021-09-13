@@ -11,55 +11,20 @@
     <!-- Title and other stuffs -->
     <title>首页</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <jsp:include page="../commons/css.jsp"></jsp:include>
-
-
-
-
-
 </head>
 <body>
 <!-- 头部 -->
-<jsp:include page="../commons/head.jsp"></jsp:include>
-
-
+<jsp:include page="../commons/stuhead.jsp"></jsp:include>
+<!-- 左边菜单 -->
+<jsp:include page="../commons/leftList.jsp"></jsp:include>
 <div class="content">
-
-    <!-- 左边菜单 -->
-    <div class="sidebar">
-        <div class="sidebar-dropdown">
-            <a href="#">导航</a>
-        </div>
-
-        <ul id="nav">
-            <li>
-                <a href="#" class="open"><i class="icon-home"></i> 首页</a>
-
-            </li>
-
-            <li >
-                <a href="http://localhost:8080/library/admin/booklist"><i class="icon-building"></i> 图书管理 </a>
-            </li>
-
-
-            <li>
-                <a href="http://localhost:8080/library/admin/findAllStu"><i class="icon-user"></i>用户管理</a>
-            </li>
-            <li>
-                <a href="http://localhost:8080/library/admin/allBorrowbooks"><i class="icon-user"></i>借阅信息</a>
-            </li>
-        </ul>
-    </div>
-
-
     <!-- 内容 -->
     <div class="mainbar">
         <div class="page-head">
             <h2 class="pull-left"><i class="icon-home"></i> 首页</h2>
             <div class="clearfix"></div>
         </div>
-
         <!-- Matter -->
         <div class="matter">
             <div class="container">
@@ -73,30 +38,24 @@
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>学生姓名</th>
-                                        <th>性别</th>
-                                        <th>电话</th>
-                                        <th>学院</th>
-                                        <th>专业</th>
-                                        <th>班级</th>
-                                        <th>学号</th>
+                                        <th>借阅人</th>
+                                        <th>借阅时间</th>
+                                        <th>书名</th>
+                                        <th>书籍编号</th>
                                         <th>操作</th>
 
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${userlist }" var="user">
+                                    <c:forEach items="${borrowlist }" var="borrow">
                                         <tr>
-                                            <td>${user.uid }</td>
-                                            <td>${user.username }</td>
-                                            <td>${user.sex }</td>
-                                            <td>${user.tel }</td>
-                                            <td>${user.institute }</td>
-                                            <td>${user.profession }</td>
-                                            <td>${user.classname }</td>
-                                            <td>${user.stuid }</td>
+                                            <td>${borrow.id }</td>
+                                            <td>${borrow.borrower }</td>
+                                            <td>${borrow.borrowtime }</td>
+                                            <td>${borrow.bookname }</td>
+                                            <td>${borrow.bid }</td>
                                             <td>
-                                                <a  class="btn btn-active" href="#">删除</a>
+                                                <a  class="btn btn-active" href="http://localhost:8080/library/borrow/returnbook?bid=${borrow.bid}">归还</a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -120,5 +79,8 @@
 <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
 
 </body>
+<script>
+
+</script>
 
 </html>

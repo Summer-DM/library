@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class User {
     //主键ID
-    private int uid;
+    private int id;
     //用户名
     private String username;
     //性别
@@ -25,4 +25,6 @@ public class User {
     private String stuid;
     //使用的密码
     private String password;
+    //用户类型：0管理员，1普通用户
+    private String type;
 }

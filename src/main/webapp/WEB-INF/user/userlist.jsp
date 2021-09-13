@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -11,48 +11,14 @@
     <!-- Title and other stuffs -->
     <title>首页</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <jsp:include page="../commons/css.jsp"></jsp:include>
-
-
-
-
-
 </head>
 <body>
 <!-- 头部 -->
 <jsp:include page="../commons/head.jsp"></jsp:include>
-
-
+<!-- 左边菜单 -->
+<jsp:include page="../commons/leftList.jsp"></jsp:include>
 <div class="content">
-
-    <!-- 左边菜单 -->
-    <div class="sidebar">
-        <div class="sidebar-dropdown">
-            <a href="#">导航</a>
-        </div>
-
-        <ul id="nav">
-            <li>
-                <a href="#" class="open"><i class="icon-home"></i> 首页</a>
-
-            </li>
-
-            <li >
-                <a href="http://localhost:8080/library/admin/booklist"><i class="icon-building"></i> 图书管理 </a>
-            </li>
-
-
-            <li>
-                <a href="http://localhost:8080/library/admin/findAllStu"><i class="icon-user"></i>用户管理</a>
-            </li>
-            <li>
-                <a href="http://localhost:8080/library/admin/allBorrowbooks"><i class="icon-user"></i>借阅信息</a>
-            </li>
-        </ul>
-    </div>
-
-
     <!-- 内容 -->
     <div class="mainbar">
         <div class="page-head">
@@ -72,22 +38,32 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th>编号</th>
-                                        <th>借阅人</th>
-                                        <th>借阅时间</th>
-                                        <th>书名</th>
-                                        <th>书籍编号</th>
+                                        <th>学生ID</th>
+                                        <th>学生姓名</th>
+                                        <th>性别</th>
+                                        <th>电话</th>
+                                        <th>学院</th>
+                                        <th>专业</th>
+                                        <th>班级</th>
+                                        <th>学号</th>
+                                        <th>操作</th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${allBorrowbooks }" var="book">
+                                    <c:forEach items="${userlist }" var="user">
                                         <tr>
-                                            <td>${book.id }</td>
-                                            <td>${book.borrower }</td>
-                                            <td>${book.borrowtime }</td>
-                                            <td>${book.bookname }</td>
-                                            <td>${book.bid }</td>
-
+                                            <td>${user.id}</td>
+                                            <td>${user.username }</td>
+                                            <td>${user.sex }</td>
+                                            <td>${user.tel }</td>
+                                            <td>${user.institute }</td>
+                                            <td>${user.profession }</td>
+                                            <td>${user.classname }</td>
+                                            <td>${user.stuid }</td>
+                                            <td>
+                                                <a class="btn btn-active" href="http://localhost:8080/library/user/deleteUser?userId=${user.id}">删除</a>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>
@@ -110,8 +86,5 @@
 <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
 
 </body>
-<script>
-
-</script>
 
 </html>

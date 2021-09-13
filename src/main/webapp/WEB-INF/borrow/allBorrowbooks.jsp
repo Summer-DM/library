@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -11,43 +11,14 @@
     <!-- Title and other stuffs -->
     <title>首页</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <jsp:include page="../commons/css.jsp"></jsp:include>
-
-
-
-
-
 </head>
 <body>
 <!-- 头部 -->
-<jsp:include page="../commons/stuhead.jsp"></jsp:include>
-
-
+<jsp:include page="../commons/head.jsp"></jsp:include>
+<!-- 左边菜单 -->
+<jsp:include page="../commons/leftList.jsp"></jsp:include>
 <div class="content">
-
-    <!-- 左边菜单 -->
-    <div class="sidebar">
-        <div class="sidebar-dropdown">
-            <a href="#">导航</a>
-        </div>
-
-        <ul id="nav">
-            <li>
-                <a href="#" class="open"><i class="icon-home"></i> 首页</a>
-
-            </li>
-
-            <li >
-                <a href="http://localhost:8080/library/admin/borrowbooklist" ><i class="icon-building"></i> 图书借阅 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
-            </li>
-            <li >
-                <a href="http://localhost:8080/library/admin/myBorrow" ><i class="icon-building"></i> 我的借阅 <span class="pull-right"><i class="icon-chevron-right"></i></span></a>
-            </li>
-        </ul>
-    </div>
-
-
     <!-- 内容 -->
     <div class="mainbar">
         <div class="page-head">
@@ -67,26 +38,21 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>编号</th>
                                         <th>借阅人</th>
                                         <th>借阅时间</th>
                                         <th>书名</th>
                                         <th>书籍编号</th>
-                                        <th>操作</th>
-
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${borrowlist }" var="borrow">
+                                    <c:forEach items="${allBorrowbooks }" var="book">
                                         <tr>
-                                            <td>${borrow.id }</td>
-                                            <td>${borrow.borrower }</td>
-                                            <td>${borrow.borrowtime }</td>
-                                            <td>${borrow.bookname }</td>
-                                            <td>${borrow.bid }</td>
-                                            <td>
-                                                <a  class="btn btn-active" href="http://localhost:8080/library/admin/returnbook?bid=${borrow.bid}">归还</a>
-                                            </td>
+                                            <td>${book.id }</td>
+                                            <td>${book.borrower }</td>
+                                            <td>${book.borrowtime }</td>
+                                            <td>${book.bookname }</td>
+                                            <td>${book.bid }</td>
                                         </tr>
                                     </c:forEach>
                                     </tbody>

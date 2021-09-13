@@ -6,7 +6,6 @@ import com.example.library.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 
@@ -27,5 +26,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> findAllStu() {
         return udao.findAllStu();
+    }
+
+    @Override
+    public int deleteUser(int id) {
+        return udao.deleteUser(id);
     }
 }
