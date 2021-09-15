@@ -8,12 +8,18 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title" id="myModalLabel">消息提示框</h4>
             </div>
-            <div class="modal-body">添加成功</div>
+            <div class="modal-body">成功</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-               
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<script>
+    function popMsg(text){
+        $(".modal-body").text(text);
+        //显示模态框
+        $('#myModal').modal('show')
+    }
+</script>

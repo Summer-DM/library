@@ -4,6 +4,8 @@ import com.example.library.model.Book;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
+
 @Repository
 public interface BookDao {
 
@@ -16,4 +18,8 @@ public interface BookDao {
     void updateBookByBid(int bid);
 
     void upBookByBid(int bid);
+
+    List<Map<String, String>> queryBookType();
+
+    List<Book> queryBooksByPage(List<String> list, String bookname, String authorname);
 }

@@ -1,8 +1,7 @@
 package com.example.library.service;
 
-import com.example.library.model.Admin;
-import org.springframework.stereotype.Service;
 
+import com.example.library.model.Admin;
 
 public interface AdminService {
     Admin findAdminByStuidAndPassword(String stuid, String password);

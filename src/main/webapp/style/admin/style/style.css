@@ -949,17 +949,20 @@ header .header-data .hdata em{
 
 .widget .table-bordered{
 	border-radius: 0px;
-	border: 0px;
+	/*border: 0px;*/
 }
 
 .widget .table-bordered th{
 	border-bottom: 1px solid #ddd !important;
+	text-align: center;
 }
 
 .widget .table-bordered td{
 	border-top: 0px !important;
+	border-right: 1px solid #ddd !important;
 	border-bottom: 1px solid #ddd !important;
 	border-radius: 0px !important;
+	text-align: center;
 }
 
 .widget .table-bordered td:first-child, .widget .table-bordered th:first-child{

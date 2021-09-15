@@ -1,6 +1,7 @@
 package com.example.library.filter;
 
 
+import com.example.library.model.User;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -40,6 +41,7 @@ public class LoginFilter implements Filter {
             return;
         } else {//不合法，判断是否已登陆过
             String username = (String) hsr.getSession().getAttribute("username");
+            User user = (User) hsr.getSession().getAttribute("user");
             System.out.println(username);
             if (username != null) {
                 System.err.println("url2"+url);

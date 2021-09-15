@@ -1,8 +1,11 @@
 package com.example.library.controller;
 
+import com.example.library.commonResult.CommonDateResult;
 import com.example.library.model.Book;
 import com.example.library.service.BookService;
 import com.example.library.utils.paramUtils.ParamUtils;
+import com.example.library.utils.stringUtils.StringUtils;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,7 @@ public class BookController {
 
     /**
      * 跳转到图书管理页面
+     *
      * @param map
      * @return
      */
@@ -44,7 +48,7 @@ public class BookController {
 
     //跳转到添加图书页面
     @RequestMapping("addbookUI")
-    public String addbookUI(){
+    public String addbookUI() {
         log.info("跳转到添加图书页面");
         return "book/addBookUI";
     }
@@ -53,7 +57,7 @@ public class BookController {
     @RequestMapping("delete")
     public String delete(@RequestParam("bid") int bid) {
         int result = bookService.deleteBookById(bid);
-        if (result == 1){
+        if (result == 1) {
             log.info("删除图书成功！");
             return "redirect:booklist";
         } else {
@@ -64,6 +68,7 @@ public class BookController {
 
     /**
      * 添加图书
+     *
      * @param request
      * @param response
      * @param modelMap
@@ -73,14 +78,14 @@ public class BookController {
     @ResponseBody
     public String addbook(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
         Book book = new Book();
-        book.setPublicationdate(ParamUtils.getString(request,"publicationdate",""));
-        book.setBookname(ParamUtils.getString(request,"bookname",""));
-        book.setAuthor(ParamUtils.getString(request,"author",""));
-        book.setPublisher(ParamUtils.getString(request,"publisher",""));
-        book.setType(ParamUtils.getString(request,"type",""));
-        book.setPrice(ParamUtils.getInt(request,"price",0));
-        book.setState(ParamUtils.getString(request,"state",""));
-        book.setComment(ParamUtils.getString(request,"comment",""));
+        book.setPublicationdate(ParamUtils.getString(request, "publicationdate", ""));
+        book.setBookname(ParamUtils.getString(request, "bookname", ""));
+        book.setAuthor(ParamUtils.getString(request, "author", ""));
+        book.setPublisher(ParamUtils.getString(request, "publisher", ""));
+        book.setType(ParamUtils.getString(request, "type", ""));
+        book.setPrice(ParamUtils.getInt(request, "price", 0));
+        book.setState(ParamUtils.getString(request, "state", ""));
+        book.setComment(ParamUtils.getString(request, "comment", ""));
         int n = bookService.addBook(book);
         if (n == 1) {
             log.info("添加图书成功！");
@@ -90,4 +95,55 @@ public class BookController {
             return "error";
         }
     }
+
+    /**
+     * 查询图书
+     *
+     * @param request
+     * @param response
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping("queryBookType")
+    @ResponseBody
+    public CommonDateResult queryBookType(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
+        CommonDateResult bookType = bookService.queryBookType();
+        bookType.setCode("1");
+        bookType.setMessage("查询成功");
+        return bookType;
+    }
+
+    /**
+     * 查询书籍
+     * @param request
+     * @param response
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping("queryBooks")
+    @ResponseBody
+    public PageInfo<Book> queryBooks(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
+        int pageNo = ParamUtils.getInt(request, "pageNo", 1); // 页码
+        int pageSize = ParamUtils.getInt(request, "pageSize", 10); // 取得显示条数
+        String bookname = ParamUtils.getString(request, "bookname", ""); // 书籍名称
+        String authorname = ParamUtils.getString(request, "authorname", ""); // 书籍作者
+        String queryType = ParamUtils.getString(request, "type", ""); // 书籍类型
+        List<String> typeList = StringUtils.getList(queryType);
+        PageInfo<Book> booklist = bookService.queryBooks(pageNo,pageSize,bookname,authorname,typeList);
+        CommonDateResult bookType = bookService.queryBookType();
+        List<Map<String,String>> data = (List<Map<String,String>>)bookType.getData();
+        //将类型切换成汉字返回
+        List<Book> list = booklist.getList();
+            for (int i = 0;i<list.size();i++){
+                for (int j = 0;j<data.size();j++){
+                    Map<String, String> map = data.get(j);
+                    if (map.get("dic_code").equals(list.get(i).getType())){
+                        list.get(i).setType(map.get("dic_value"));
+                    }
+                }
+            }
+        return booklist;
+    }
+
+
 }

@@ -1,6 +1,5 @@
 package com.example.library.controller;
 
-import com.example.library.model.Admin;
 import com.example.library.model.User;
 import com.example.library.service.UserService;
 import org.slf4j.Logger;

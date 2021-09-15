@@ -10,7 +10,11 @@
 
 <%
     User user = (User) request.getSession().getAttribute("user");
-    String type = user.getType();
+    System.out.println("用户信息："+user);
+    String type = "";
+    if (null != user){
+        type = user.getType();
+    }
 %>
 <div class="sidebar">
     <div class="sidebar-dropdown">
