@@ -42,6 +42,7 @@ public class BookController {
     @RequestMapping("booklist")
     public String findAllBooks(Map map) {
         List<Book> booklist = bookService.findAllBooks();
+        map.put("total", booklist.size());
         map.put("booklist", booklist);
         return "book/booklist";
     }
@@ -83,9 +84,10 @@ public class BookController {
         book.setAuthor(ParamUtils.getString(request, "author", ""));
         book.setPublisher(ParamUtils.getString(request, "publisher", ""));
         book.setType(ParamUtils.getString(request, "type", ""));
-        book.setPrice(ParamUtils.getInt(request, "price", 0));
+        book.setPrice(ParamUtils.getInt(request, "price", 10));
         book.setState(ParamUtils.getString(request, "state", ""));
         book.setComment(ParamUtils.getString(request, "comment", ""));
+
         int n = bookService.addBook(book);
         if (n == 1) {
             log.info("添加图书成功！");

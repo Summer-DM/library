@@ -33,18 +33,18 @@
 <!-- Header 开始 -->
 <header>
     <div class="container">
-        <div class="row">
-            <div class="col-md-4">
+        <div class="center-main pb20">
+            <div class="ptb20 monitor">
                 <div class="logo">
                     <h1>
-                        <a href="#" style="padding-left: 25px;">图书馆<span class="bold"></span></a>
+                        <a href="#" style="padding-left: 25px;color: #00F7DE">图书馆<span class="bold"></span></a>
                     </h1>
                     <p class="meta" style="padding-left: 40px">后台管理系统</p>
                 </div>
             </div>
 
             <!-- Button section -->
-            <div class="col-md-5">
+            <div class="mt20 two-area monitor">
 
                 <!-- Buttons -->
                 <%--				<ul class="nav nav-pills">--%>
@@ -64,8 +64,8 @@
             </div>
             <!-- Data section -->
 
-            <div class="col-md-3">
-                <div class="header-data">
+            <div class="mt20 two-area">
+                <div class="header-data" style="text-align: end;">
 
                     <!-- Traffic data -->
                     <div class="hdata">

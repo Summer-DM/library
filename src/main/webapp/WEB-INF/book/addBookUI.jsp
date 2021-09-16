@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 
 <!DOCTYPE html>
 <html>
@@ -47,65 +47,72 @@
                             <div class="widget-content">
                                 <div class="padd">
 
-                                    <!-- Form starts.  -->
-                                    <form class="form-horizontal" role="form" method="post" action="admin/add" >
-                                        <div class="form-group text-center">
-
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-lg-4 col-md-4 col-xs-4 control-label">书名</label>
-                                            <div class="col-lg-8 col-md-8 col-xs-8">
-                                                <input id="bookname" name="bookname" type="text" required="required" value="" class="form-control" placeholder="书名">
+                                    <form class="layui-form" action="" method="post">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">书籍名称</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="bookname" id="bookname" required
+                                                       lay-verify="required"
+                                                       placeholder="请输入书籍名称" autocomplete="off" class="layui-input">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-4 col-md-4 col-xs-4 control-label">作者</label>
-                                            <div class="col-lg-8 col-md-8 col-xs-8">
-                                                <input id="author" name="author" type="text" required="required" value="" class="form-control" placeholder="作者">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">作者名称</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="author" id="author" required
+                                                       lay-verify="required"
+                                                       placeholder="请输入作者名称" autocomplete="off" class="layui-input">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-4 col-md-4 col-xs-4 control-label">类型</label>
-                                            <div class="col-lg-8 col-md-8 col-xs-8">
-                                                <input id="type" name="type" type="text" required="required" value="" class="form-control" placeholder="类型">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">书籍类型</label>
+                                            <div class="layui-input-block">
+                                                <select name="btype" id="btype">
+                                                </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-4 col-md-4 col-xs-4 control-label">出版单位</label>
-                                            <div class="col-lg-8 col-md-8 col-xs-8">
-                                                <input id="publisher" name="publisher" type="text" required="required" value="" class="form-control" placeholder="出版单位">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">出版单位</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="publisher" id="publisher" required
+                                                       lay-verify="required"
+                                                       placeholder="请输入出版单位" autocomplete="off" class="layui-input">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-4 col-md-4 col-xs-4 control-label">出版时间</label>
-                                            <div class="col-lg-8 col-md-8 col-xs-8">
-                                                <input id="publicationdate" name="publicationdate" type="date" required="required" value="" class="form-control" placeholder="出版时间">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-4 col-md-4 col-xs-4 control-label">价格</label>
-                                            <div class="col-lg-8 col-md-8 col-xs-8">
-                                                <input id="price" name="price" type="text" required="required" value="" class="form-control" placeholder="价格">
-                                            </div>
-                                        </div>
-                                        <div class="form-group hidden">
-                                            <label class="col-lg-4 col-md-4 col-xs-4 control-label">借阅状态</label>
-                                            <div class="col-lg-8 col-md-8 col-xs-8">
-                                                <input id="state" name="state" type="text" required="required" value="1" class="form-control" placeholder="借阅状态">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-lg-4 col-md-4 col-xs-4 control-label">备注</label>
-                                            <div class="col-lg-8 col-md-8 col-xs-8">
-                                                <input id="comment" name="comment" type="text" required="required" value="" class="form-control" placeholder="备注">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">出版时间</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" class="layui-input" name="publicationdate"
+                                                       id="publicationdate" placeholder="年年年年-月月-日日"  lay-verify="required">
                                             </div>
                                         </div>
 
-
-                                        <div class="form-group">
-                                            <div class="col-lg-offset-1 col-lg-1 col-md-offset-1 col-md-1 col-xs-5">
-                                                <button type="button" class="btn btn-success" onclick="return check()">确认添加</button>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">借阅状态</label>
+                                            <div class="layui-input-block">
+                                                <input type="radio" name="state" value="2" title="已借阅">
+                                                <input type="radio" name="state" value="1" title="未借阅">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">价格</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="price" id="price" required
+                                                       lay-verify="required"
+                                                       placeholder="请输入价格" autocomplete="off" class="layui-input">
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item layui-form-text">
+                                            <label class="layui-form-label">备注</label>
+                                            <div class="layui-input-block">
+                                                <textarea name="comment" id="comment" placeholder="请输入备注"
+                                                          class="layui-textarea"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="layui-form-item">
+                                            <div class="layui-input-block">
+                                                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                                                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                                             </div>
                                         </div>
                                     </form>
@@ -127,60 +134,75 @@
 <!-- 快速回到顶部 -->
 <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
 
-<!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel">消息提示框</h4>
-            </div>
-            <div class="modal-body">添加成功</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
 </body>
 <script type="text/javascript">
-    function check() {
-        var data = {
-            bookname: $("#bookname").val(),
-            author: $("#author").val(),
-            type: $("#type").val(),
-            publisher: $("#publisher").val(),
-            publicationdate: $("#publicationdate").val(),
-            price: $("#price").val(),
-            state: $("#state").val(),
-            comment: $("#comment").val()
-        };
-            $.ajax({
-                url:"addbook",
-                data: data,
-                type: "POST",
-                dateType: "JSON",
-                success:function(data){
-                    if(data=="success"){
-                        $(".modal-body").text("添加成功");
-                        //显示模态框
-                        $('#myModal').modal('show')
-                    }else{
-                        $(".modal-body").text("添加失败");
-                        //显示模态框
-                        $('#myModal').modal('show')
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+
+        //常规用法
+        laydate.render({
+            elem: '#publicationdate'
+        });
+    })
+    getTypes();
+
+    /**
+     * 初始化下拉框
+     */
+    function getTypes() {
+        $.ajax({
+            url: "queryBookType",
+            type: "POST",
+            dateType: "JSON",
+            success: function (ret) {
+                if (ret.code == 1) {
+                    var contentContainer = $("#btype");
+                    contentContainer.empty();
+                    contentContainer.html('');
+                    var list = ret.data;
+                    for (var i = 0; i < list.length; i++) {
+                        contentContainer.append('<option value=' + list[i]["dic_code"] + '>' + list[i]["dic_value"] + '</option>')
                     }
-                },
-                error:function(){
-                    $(".modal-body").text("添加失败");
-                    //显示模态框
-                    $('#myModal').modal('show')
+                    layui.use('form', function () {
+                        var form = layui.form;
+                        form.render();
+                    })
                 }
-            });
+            },
+            error: function () {
+                errorMsg("系统出错");
+            }
+        });
     }
 
+    /**
+     * 监听提交事件
+     */
+    layui.use('form', function () {
+        var form = layui.form;
+        //监听提交
+        form.on('submit(formDemo)', function (data) {
+            // var val = $('input[name="radio"]:checked').val();
+          // console.log(data);
+            $.ajax({
+                url: "addbook",
+                data: data.field,
+                type: "POST",
+                dateType: "JSON",
+                success: function (data) {
+                    if (data == "success") {
+                        successMsg("添加成功！");
+                        window.onload = "/library/book/addBookUI";
+                    } else {
+                        errorMsg("添加失败");
+                    }
+                },
+                error: function () {
+                    errorMsg("系统出错");
+                }
+            });
+        });
+    });
 </script>
 
 </html>
