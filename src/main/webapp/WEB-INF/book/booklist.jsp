@@ -23,6 +23,11 @@
     <div class="mainbar">
         <div class="page-head">
             <h2 class="pull-left"><i class="icon-home"></i> 首页</h2>
+            <div class="bread-crumb pull-right" style="margin-left: 15px;">
+                <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" id="fileUpload">
+                    <i class="layui-icon">&#xe67c;</i>文件导入
+                </button>
+            </div>
             <div class="bread-crumb pull-right">
                 <a href="http://localhost:8080/library/book/addbookUI" class="btn btn-active"> 添加图书</a>
             </div>
@@ -62,7 +67,7 @@
 
     var qparam = {
         pageNo: 1,
-        pageSize: 15,
+        pageSize: 10,
     };
     books();
     function books() {
@@ -82,23 +87,23 @@
                             table.render({
                                 elem: '#booksInfo',
                                 count: total,
-                                page: false,
+                                page: false, //表示不使用前端分页，强制使用后端请求分页
                                 limit: qparam.pageSize,
                                 data: ret.list,
                                 cols: [[
                                     {field: 'bid', width: '5%', title: '编号', sort: true},
                                     {field: 'bookname', width: '15%', title: '书名'},
                                     {field: 'author', width: '15%', title: '作者'},
-                                    {field: 'type', width: '10%', title: '类型'},
+                                    {field: 'booktype', width: '10%', title: '类型'},
                                     {field: 'publisher', title: '出版单位', width: '15%'},
                                     {field: 'publicationdate', title: '出版时间', width: '10%', sort: true},
                                     {field: 'price', title: '价格', width: '5%', sort: true},
                                     {
-                                        field: 'state', title: '借阅状态', width: '10%',
+                                        field: 'bookstate', title: '借阅状态', width: '10%',
                                         templet: function (d) {
-                                            if (d.state == "1") {
+                                            if (d.bookstate == "1") {
                                                 return "已借阅";
-                                            } else if (d.state == "2") {
+                                            } else if (d.bookstate == "2") {
                                                 return "未借阅";
                                             }
                                         },
@@ -117,9 +122,11 @@
                                         count: total, //数据总数
                                         limit: qparam.pageSize,
                                         curr: qparam.pageNo,
+                                        layout:['prev', 'page', 'next' , 'limit' , 'skip'],
                                         jump: function (obj, first) {
                                             if (!first) {
                                                 qparam.pageNo = obj.curr;
+                                                qparam.pageSize = obj.limit;
                                                 books();
                                             }
                                         },
@@ -140,21 +147,30 @@
         });
     }
 
-    //分页
-    //     layui.use('laypage', function () {
-    //         var laypage = layui.laypage;
-    //         //执行一个laypage实例
-    //         laypage.render({
-    //             elem: 'demo2', //注意，这里的 test1 是 ID，不用加 # 号
-    //             count: 50, //数据总数，从服务端得到
-    //             theme: '#036eb5',
-    //             limit: 10,
-    //             layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
-    //             jump: function (obj, first) {
-    //                 if (!first) {
-    //                 }
-    //             }
-    //         });
-    //     });
-
+    /**
+     * 文件上传--批量导入
+     */
+    layui.use('upload', function(){
+        var upload = layui.upload;
+        var layer = layui.layer;
+        // layer.msg('上传中', {icon: 16, time: 0,shade: 0.3});
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#fileUpload', //绑定元素
+            url: '/library/file/uploadFile/', //上传接口
+            exts: 'xlsx|xls', //限制文件类型
+            done: function(res){
+                //上传完毕回调
+                if (res.code == '1'){
+                    successMsg("导入成功");
+                }else {
+                    errorMsg("导入失败"+res);
+                }
+            },
+            error: function(res){
+                //请求异常回调
+                errorMsg("系统异常"+res);
+            }
+        });
+    });
 </script>

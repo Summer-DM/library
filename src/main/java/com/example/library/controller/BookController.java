@@ -42,8 +42,6 @@ public class BookController {
     @RequestMapping("booklist")
     public String findAllBooks(Map map) {
         List<Book> booklist = bookService.findAllBooks();
-        map.put("total", booklist.size());
-        map.put("booklist", booklist);
         return "book/booklist";
     }
 
@@ -83,9 +81,9 @@ public class BookController {
         book.setBookname(ParamUtils.getString(request, "bookname", ""));
         book.setAuthor(ParamUtils.getString(request, "author", ""));
         book.setPublisher(ParamUtils.getString(request, "publisher", ""));
-        book.setType(ParamUtils.getString(request, "type", ""));
+        book.setBooktype(ParamUtils.getString(request, "booktype", ""));
         book.setPrice(ParamUtils.getInt(request, "price", 10));
-        book.setState(ParamUtils.getString(request, "state", ""));
+        book.setBookstate(ParamUtils.getString(request, "bookstate", ""));
         book.setComment(ParamUtils.getString(request, "comment", ""));
 
         int n = bookService.addBook(book);
@@ -129,7 +127,7 @@ public class BookController {
         int pageSize = ParamUtils.getInt(request, "pageSize", 10); // 取得显示条数
         String bookname = ParamUtils.getString(request, "bookname", ""); // 书籍名称
         String authorname = ParamUtils.getString(request, "authorname", ""); // 书籍作者
-        String queryType = ParamUtils.getString(request, "type", ""); // 书籍类型
+        String queryType = ParamUtils.getString(request, "booktype", ""); // 书籍类型
         List<String> typeList = StringUtils.getList(queryType);
         PageInfo<Book> booklist = bookService.queryBooks(pageNo,pageSize,bookname,authorname,typeList);
         CommonDateResult bookType = bookService.queryBookType();
@@ -139,8 +137,8 @@ public class BookController {
             for (int i = 0;i<list.size();i++){
                 for (int j = 0;j<data.size();j++){
                     Map<String, String> map = data.get(j);
-                    if (map.get("dic_code").equals(list.get(i).getType())){
-                        list.get(i).setType(map.get("dic_value"));
+                    if (map.get("dic_code").equals(list.get(i).getBooktype())){
+                        list.get(i).setBooktype(map.get("dic_value"));
                     }
                 }
             }

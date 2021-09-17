@@ -4,7 +4,6 @@ import com.example.library.commonResult.CommonDateResult;
 import com.example.library.dao.BookDao;
 import com.example.library.model.Book;
 import com.example.library.service.BookService;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,5 +57,21 @@ public class BookServiceImpl implements BookService {
         List<Book> userList = bDao.queryBooksByPage(queryType, bookname, authorname);
         PageInfo<Book> pageInfo = new PageInfo<>(userList);
         return pageInfo;
+    }
+
+    @Override
+    public CommonDateResult insertBooks(List<Book> books) {
+        CommonDateResult resultSet = new CommonDateResult();
+        int result = bDao.insertBooks(books);
+        if (result > 0){
+            resultSet.setCode("1");
+            resultSet.setMessage("批量导入成功");
+            resultSet.setStatus(true);
+        }else {
+            resultSet.setCode("0");
+            resultSet.setMessage("批量导入失败！");
+            resultSet.setStatus(false);
+        }
+        return resultSet;
     }
 }

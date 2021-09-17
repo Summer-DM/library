@@ -2,15 +2,22 @@ package com.example.library.controller;
 
 import com.example.library.model.Book;
 import com.example.library.model.Borrow;
+import com.example.library.model.User;
 import com.example.library.service.BookService;
 import com.example.library.service.BorrowService;
+import com.example.library.utils.paramUtils.ParamUtils;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,9 +45,25 @@ public class BorrowController {
      */
     @RequestMapping("allBorrowbooks")
     public String findallBorrowbooks(Map map) {
-        List<Borrow> allBorrowbooks = borrowService.findallBorrowbooks();
-        map.put("allBorrowbooks", allBorrowbooks);
+        //List<Borrow> allBorrowbooks = borrowService.findallBorrowbooks();
+        //map.put("allBorrowbooks", allBorrowbooks);
         return "borrow/allBorrowbooks";
+    }
+
+    /**
+     * 初始化借阅信息页面
+     * @param request
+     * @param response
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping("queryBorrowers")
+    @ResponseBody
+    public PageInfo<Borrow> queryBorrowers(HttpServletRequest request, HttpServletResponse response, ModelMap modelMap) {
+        int pageNo = ParamUtils.getInt(request, "pageNo", 1); // 页码
+        int pageSize = ParamUtils.getInt(request, "pageSize", 10); // 取得显示条数
+        PageInfo<Borrow> borrowlist = borrowService.queryBorrowers(pageNo,pageSize);
+        return borrowlist;
     }
 
     /**

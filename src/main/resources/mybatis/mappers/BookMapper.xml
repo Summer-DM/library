@@ -15,19 +15,20 @@
     </delete>
     <!--    添加书籍-->
     <insert id="addBook">
-        insert into book(bookname, author, type, publisher, publicationdate, price, state, comment)
-        values (#{bookname}, #{author}, #{type}, #{publisher}, #{publicationdate}, #{price}, #{state}, #{comment})
+        insert into book(bookname, author, booktype, publisher, publicationdate, price, bookstate, comment)
+        values (#{bookname}, #{author}, #{booktype}, #{publisher}, #{publicationdate}, #{price}, #{bookstate},
+                #{comment})
     </insert>
     <!--    借阅书籍-->
     <update id="updateBookByBid">
         update book
-        set state='2'
+        set bookstate='2'
         where bid = #{bid}
     </update>
     <!--    归还书籍-->
     <update id="upBookByBid">
         update book
-        set state='1'
+        set bookstate='1'
         where bid = #{bid}
     </update>
     <!-- 查询书籍类型-->
@@ -45,10 +46,23 @@
             and author=#{authorname,jdbcType=VARCHAR}
         </if>
         <if test="list != null and list.size()>0">
-            and type in
+            and booktype in
             <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
                 #{item,jdbcType=VARCHAR}
             </foreach>
         </if>
     </select>
+
+    <insert id="insertBooks" parameterType="java.util.List">
+        insert into book(bookname, author, booktype, publisher, publicationdate, price, bookstate, comment)
+        values
+        <foreach collection="books" index="" item="item" separator=",">
+            (
+            #{item.bookname,jdbcType=VARCHAR}, #{item.author,jdbcType=VARCHAR}, #{item.booktype,jdbcType=VARCHAR},
+            #{item.publisher,jdbcType=VARCHAR}, #{item.publicationdate,jdbcType=VARCHAR},
+            #{item.price,jdbcType=INTEGER},
+            #{item.bookstate,jdbcType=VARCHAR}, #{item.comment,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
 </mapper>

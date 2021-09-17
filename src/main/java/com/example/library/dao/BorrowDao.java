@@ -14,4 +14,6 @@ public interface BorrowDao {
     void delMyBorrow(int bid);
 
     List<Borrow> findallBorrowbooks();
+
+    List<Borrow> queryBorrowers();
 }

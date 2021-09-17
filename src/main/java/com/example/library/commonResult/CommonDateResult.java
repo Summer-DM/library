@@ -15,7 +15,7 @@ public class CommonDateResult<T> implements Serializable{
     private static final long serialVersionUID = 1L;
     private static final Logger log= LoggerFactory.getLogger(CommonDateResult.class);
     /**
-     * 返回状态
+     * 返回状态--默认是true
      */
     private Boolean status=true;
     /**
@@ -73,13 +73,13 @@ public class CommonDateResult<T> implements Serializable{
      */
     public CommonDateResult(String type, String message, T data) {
         this.status=true;
-        this.code ="0000";
+        this.code ="0";
         this.type=type;
         this.message = message;
         this.data=data;
     }
     public CommonDateResult() {
         this.status=true;
-        this.code ="0000";
+        this.code ="0";
     }
 }

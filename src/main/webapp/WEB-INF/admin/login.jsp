@@ -22,6 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
+<%--    <jsp:include page="../commons/css.jsp"></jsp:include>--%>
 </head>
 
 <body class="templatemo-bg-gray">
@@ -68,10 +69,10 @@
             <hr>
 
         </form>
-        <div class="text-center">
-            <a href="http://localhost:8080/library/admin/toregist" class="templatemo-create-new">学生注册<i
-                    class="fa fa-arrow-circle-o-right"></i></a>
-        </div>
+<%--        <div class="text-center">--%>
+<%--            <a href="http://localhost:8080/library/admin/toregist" class="templatemo-create-new">学生注册<i--%>
+<%--                    class="fa fa-arrow-circle-o-right"></i></a>--%>
+<%--        </div>--%>
     </div>
 </div>
 
@@ -113,9 +114,10 @@
                         window.location.href = "index"
                     } else if (data == "false") {
                         //换掉模态框里的内容html(),text(),val()
-                        $(".modal-body").text("用户不存在，请前往注册或者重新输入正确的用户");
+                        // $(".modal-body").text("用户不存在，请前往注册或者重新输入正确的用户");
+                        errorMsg("用户不存在，请前往注册或者重新输入正确的用户")
                         //显示模态框
-                        $('#myModal').modal('show')
+                        // $('#myModal').modal('show')
                     } else {
                         //换掉模态框里的内容html(),text(),val()
                         $(".modal-body").text("请仔细检查您的用户名或密码是否输入正确");

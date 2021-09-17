@@ -16,7 +16,7 @@
                         <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <c:if test="${type == '0'}">
-                            <li><a href="<%=request.getContextPath()%>/user/addUser"><i class="icon-edit"></i>
+                            <li><a href="<%=request.getContextPath()%>/user/addAdmin"><i class="icon-edit"></i>
                                 添加管理员</a></li>
                         </c:if>
                         <li><a href="<%=request.getContextPath()%>/admin/updatepwd"><i class="icon-key"></i> 修改密码</a>

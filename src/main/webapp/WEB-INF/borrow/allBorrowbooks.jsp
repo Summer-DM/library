@@ -35,28 +35,8 @@
 
                         <div class="widget">
                             <div class="widget-content">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>编号</th>
-                                        <th>借阅人</th>
-                                        <th>借阅时间</th>
-                                        <th>书名</th>
-                                        <th>书籍编号</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach items="${allBorrowbooks }" var="book">
-                                        <tr>
-                                            <td>${book.id }</td>
-                                            <td>${book.borrower }</td>
-                                            <td>${book.borrowtime }</td>
-                                            <td>${book.bookname }</td>
-                                            <td>${book.bid }</td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
+                                <table class="layui-hide" id="borrowInfo"></table>
+                                <div class="fy-box" id="demo4" style="margin-left: 32%"></div>
                             </div>
                         </div>
 
@@ -73,10 +53,70 @@
 <jsp:include page="../commons/foot.jsp"></jsp:include>
 <!-- 快速回到顶部 -->
 <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
-
 </body>
-<script>
-
-</script>
-
 </html>
+<script>
+    var borrowParam = {
+        pageNo: 1,
+        pageSize: 10,
+    };
+    borrowerList();
+    function borrowerList() {
+        layui.use('table', function () {
+            var table = layui.table;
+            var laypage = layui.laypage;
+            function getborrowers() {
+                $.ajax({
+                    url: "queryBorrowers",
+                    type: "POST",
+                    data: borrowParam,
+                    dateType: "JSON",
+                    success: function (ret) {
+                        if (ret.size > 0) {
+                            total = ret.total;
+                            //首页表格渲染
+                            table.render({
+                                elem: '#borrowInfo',
+                                count: total,
+                                page: false, //表示不使用前端分页，强制使用后端请求分页
+                                limit: borrowParam.pageSize,
+                                data: ret.list,
+                                cols: [[
+                                    {field: 'id', width: '20%', title: '编号', sort: true},
+                                    {field: 'borrower', width: '20%', title: '借阅人'},
+                                    {field: 'borrowtime', title: '借阅时间', width: '20%', sort: true},
+                                    {field: 'bookname', width: '20%', title: '书名'},
+                                    {field: 'bid', width: '20%', title: '书籍编号', sort: true}
+                                ]],
+                                done: function () {
+                                    //分页
+                                    laypage.render({
+                                        elem: 'demo4',
+                                        count: total, //数据总数
+                                        limit: borrowParam.pageSize,
+                                        curr: borrowParam.pageNo,
+                                        layout:['prev', 'page', 'next' , 'limit' , 'skip'],
+                                        jump: function (obj, first) {
+                                            if (!first) {
+                                                borrowParam.pageNo = obj.curr;
+                                                borrowParam.pageSize = obj.limit;
+                                                borrowerList();
+                                            }
+                                        },
+                                    });
+                                }
+                            });
+                        } else {
+                            errorMsg("服务错误");
+                            // window.onload = "/library/admin/index";
+                        }
+                    },
+                    error: function () {
+                        errorMsg("系统异常");
+                    }
+                });
+            }
+            getborrowers();
+        });
+    }
+</script>

@@ -8,7 +8,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
-    <!-- Title and other stuffs -->
     <title>首页</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <jsp:include page="../commons/css.jsp"></jsp:include>
@@ -58,23 +57,23 @@
                                             <td>${book.bid }</td>
                                             <td>${book.bookname }</td>
                                             <td>${book.author }</td>
-                                            <td>${book.type }</td>
+                                            <td>${book.booktype }</td>
                                             <td>${book.publisher }</td>
                                             <td>${book.publicationdate }</td>
                                             <td>${book.price }</td>
-                                            <c:if test="${book.state eq '1'}">
+                                            <c:if test="${book.bookstate eq '1'}">
                                                 <td>未借阅</td>
                                             </c:if>
-                                            <c:if test="${book.state eq '2'}">
+                                            <c:if test="${book.bookstate eq '2'}">
                                                 <td>已借阅</td>
                                             </c:if>
                                             <td>${book.comment }</td>
-                                            <c:if test="${book.state eq '1'}">
+                                            <c:if test="${book.bookstate eq '1'}">
                                             <td>
                                                 <a  class="btn btn-active" href="http://localhost:8080/library/borrow/borrowbook?bookname=${book.bookname}&bid=${book.bid}">借阅</a>
                                             </td>
                                             </c:if>
-                                            <c:if test="${book.state eq '2'}">
+                                            <c:if test="${book.bookstate eq '2'}">
                                                 <td>已借阅</td>
                                             </c:if>
                                         </tr>

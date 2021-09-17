@@ -95,19 +95,4 @@ public class AdminController {
         return "admin/login";
     }
 
-    //跳转到学生注册
-    @RequestMapping("toregist")
-    public String toregist() {
-        return "admin/regist";
-    }
-
-    //学生注册
-    @RequestMapping("regist")
-    public String regist(User user) {
-        String md5pwd = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
-        user.setPassword(md5pwd);
-        uService.addUser(user);
-        return "redirect:login";
-    }
-
 }

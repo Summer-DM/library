@@ -20,4 +20,6 @@ public interface BookService {
     CommonDateResult queryBookType();
 
     PageInfo<Book> queryBooks(int pageNo, int pageSize, String bookname, String authorname, List<String> queryType);
+
+    CommonDateResult insertBooks(List<Book> books);
 }

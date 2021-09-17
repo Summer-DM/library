@@ -46,7 +46,6 @@
 
                             <div class="widget-content">
                                 <div class="padd">
-
                                     <form class="layui-form" action="" method="post">
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">书籍名称</label>
@@ -90,8 +89,8 @@
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">借阅状态</label>
                                             <div class="layui-input-block">
-                                                <input type="radio" name="state" value="2" title="已借阅">
-                                                <input type="radio" name="state" value="1" title="未借阅">
+                                                <input type="radio" name="bookstate" value="2" title="已借阅">
+                                                <input type="radio" name="bookstate" value="1" title="未借阅">
                                             </div>
                                         </div>
                                         <div class="layui-form-item">
@@ -138,8 +137,7 @@
 <script type="text/javascript">
     layui.use('laydate', function () {
         var laydate = layui.laydate;
-
-        //常规用法
+        //渲染日期
         laydate.render({
             elem: '#publicationdate'
         });
@@ -182,8 +180,6 @@
         var form = layui.form;
         //监听提交
         form.on('submit(formDemo)', function (data) {
-            // var val = $('input[name="radio"]:checked').val();
-          // console.log(data);
             $.ajax({
                 url: "addbook",
                 data: data.field,

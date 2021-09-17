@@ -14,7 +14,7 @@ public class Book {
     //作者
     private String author;
     //书的类型  武侠、言情等
-    private String type;
+    private String booktype;
     //出版社
     private String publisher;
     //出版时间
@@ -22,7 +22,7 @@ public class Book {
     //发行价格
     private int price;
     //发行状态
-    private String state;
+    private String bookstate;
     //备注
     private String comment;
 }

@@ -57,7 +57,7 @@
                                     </div>
                                     <label for="authorname" class="col-sm-1 control-label">书籍作者：</label>
                                     <div class="col-sm-3">
-                                        <input type="text" class="form-control" id="authorname" placeholder="请输入姓">
+                                        <input type="text" class="form-control" id="authorname" placeholder="请输入作者">
                                     </div>
                                     <button type="button" class="btn btn-primary" onclick="bookList()">查询</button>
                                 </div>
@@ -68,11 +68,11 @@
                                 </div>
                             </form>
                             <div class="widget-head" style="border-top: 2px solid #c9c9c9">
-                                <div class="pull-left">书籍清单</div>
+                                <div class="pull-left" style="color: black;">书籍清单</div>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="widget-content">
-                                <table class="layui-hide" id="tableInfo"></table>
+                                <table class="layui-hide" id="tableInfo" lay-filter="tableEvent"></table>
                                 <div class="fy-box" id="demo1" style="margin-left: 50%"></div>
                             </div>
                         </div>
@@ -92,6 +92,7 @@
 </body>
 </html>
 <script>
+
     var total = "";
     var data = "";
 
@@ -149,7 +150,7 @@
             }
             bookListParam.bookname = $("#bookname").val();
             bookListParam.authorname = $("#authorname").val();
-            bookListParam.type = data;
+            bookListParam.booktype = data;
 
             function getObj() {
                 $.ajax({
@@ -169,18 +170,18 @@
                                 data: ret.list,
                                 cols: [[
                                     {field: 'bid', width: '5%', title: '编号', sort: true},
-                                    {field: 'bookname', width: '15%', title: '书名'},
+                                    {field: 'bookname', width: '15%', title: '书名',event: 'showBookIntroduction',style:'cursor: pointer;'},
                                     {field: 'author', width: '15%', title: '作者'},
-                                    {field: 'type', width: '10%', title: '类型'},
+                                    {field: 'booktype', width: '10%', title: '类型'},
                                     {field: 'publisher', title: '出版单位', width: '15%'},
                                     {field: 'publicationdate', title: '出版时间', width: '10%', sort: true},
                                     {field: 'price', title: '价格', width: '5%',sort: true},
                                     {
-                                        field: 'state', title: '借阅状态', width: '10%',
+                                        field: 'bookstate', title: '借阅状态', width: '10%',
                                         templet: function (d) {
-                                            if (d.state == "1") {
+                                            if (d.bookstate == "1") {
                                                 return "已借阅";
-                                            } else if (d.state == "2") {
+                                            } else if (d.bookstate == "2") {
                                                 return "未借阅";
                                             }
                                         },
@@ -201,6 +202,22 @@
                                             }
                                         },
                                     });
+                                }
+                            });
+                            //监听单元格事件
+                            table.on('tool(tableEvent)', function(obj){
+                                var data = obj.data;
+                                if(obj.event === 'showBookIntroduction'){
+                                    layer.open({
+                                        icon:7,
+                                        title: data.bookname +'内容简介',
+                                        content: '即将打开'+data.bookname+'内容！！！！！',
+                                        btn: ['确定', '取消'], //可以无限个按钮
+                                        yes: function(index, layero){
+                                            //按钮【按钮一】的回调
+                                            window.location.href='https://www.biquwx.la/modules/article/search.php?searchkey=' + data.bookname
+                                        }
+                                    })
                                 }
                             });
                         } else {
