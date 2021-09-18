@@ -24,5 +24,5 @@ public interface BookDao {
 
     List<Book> queryBooksByPage(List<String> list, String bookname, String authorname);
 
-    int insertBooks(@Param("books") List<Book> books);
+    int insertBooks(@Param("books") List<Object> books);
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -15,7 +15,7 @@
 </head>
 <body>
 <!-- 头部 -->
-<jsp:include page="../commons/stuhead.jsp"></jsp:include>
+<jsp:include page="../commons/head.jsp"></jsp:include>
 <!-- 左边菜单 -->
 <jsp:include page="../commons/leftList.jsp"></jsp:include>
 <div class="content">
@@ -34,33 +34,8 @@
 
                         <div class="widget">
                             <div class="widget-content">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>借阅人</th>
-                                        <th>借阅时间</th>
-                                        <th>书名</th>
-                                        <th>书籍编号</th>
-                                        <th>操作</th>
-
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach items="${borrowlist }" var="borrow">
-                                        <tr>
-                                            <td>${borrow.id }</td>
-                                            <td>${borrow.borrower }</td>
-                                            <td>${borrow.borrowtime }</td>
-                                            <td>${borrow.bookname }</td>
-                                            <td>${borrow.bid }</td>
-                                            <td>
-                                                <a  class="btn btn-active" href="http://localhost:8080/library/borrow/returnbook?bid=${borrow.bid}">归还</a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
+                                <table class="layui-hide" id="myBorrowInfo"></table>
+                                <div class="fy-box" id="demo6" style="margin-left: 32%"></div>
                             </div>
                         </div>
 
@@ -79,8 +54,74 @@
 <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
 
 </body>
+</html>
 <script>
+    var myBorrowParam = {
+        pageNo: 1,
+        pageSize: 10,
+    };
+    myBorrowerList();
 
+    function myBorrowerList() {
+        layui.use('table', function () {
+            var table = layui.table;
+            var laypage = layui.laypage;
+
+            function getMyborrowInfo() {
+                $.ajax({
+                    url: "queryMyBorrow",
+                    type: "POST",
+                    data: myBorrowParam,
+                    dateType: "JSON",
+                    success: function (ret) {
+                        total = ret.total;
+                        //首页表格渲染
+                        table.render({
+                            elem: '#myBorrowInfo',
+                            count: total,
+                            page: false, //表示不使用前端分页，强制使用后端请求分页
+                            limit: myBorrowParam.pageSize,
+                            data: ret.list,
+                            cols: [[
+                                {field: 'id', width: '10%', title: '#', sort: true},
+                                {field: 'borrower', width: '20%', title: '借阅人'},
+                                {field: 'borrowtime', title: '借阅时间', width: '20%', sort: true},
+                                {field: 'bookname', width: '20%', title: '书名'},
+                                {field: 'bid', width: '20%', title: '书籍编号', sort: true},
+                                {
+                                    field: 're', title: '操作', width: '10%',
+                                    templet: function (d) {
+                                        return '<a class="btn btn-active" href="returnbook?bid=' + d.bid + '">归还</a>';
+                                    }
+                                }
+                            ]],
+                            done: function () {
+                                //分页
+                                laypage.render({
+                                    elem: 'demo6',
+                                    count: total, //数据总数
+                                    limit: myBorrowParam.pageSize,
+                                    curr: myBorrowParam.pageNo,
+                                    layout: ['prev', 'page', 'next', 'limit', 'skip'],
+                                    jump: function (obj, first) {
+                                        if (!first) {
+                                            myBorrowParam.pageNo = obj.curr;
+                                            myBorrowParam.pageSize = obj.limit;
+                                            myBorrowerList();
+                                        }
+                                    },
+                                });
+                            }
+                        });
+                    },
+                    error: function () {
+                        errorMsg("系统异常");
+                    }
+                });
+            }
+
+            getMyborrowInfo();
+        });
+    }
 </script>
 
-</html>

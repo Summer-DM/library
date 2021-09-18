@@ -3,6 +3,7 @@ package com.example.library.controller;
 import com.example.library.commonResult.CommonDateResult;
 import com.example.library.model.Book;
 import com.example.library.service.BookService;
+import com.example.library.utils.fileUtils.ExcelUtils;
 import com.example.library.utils.paramUtils.ParamUtils;
 import com.example.library.utils.stringUtils.StringUtils;
 import com.github.pagehelper.PageInfo;
@@ -14,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -96,6 +98,25 @@ public class BookController {
         }
     }
 
+    /**
+     * 批量导入书籍
+     * @param file
+     * @return
+     */
+    @RequestMapping("batchAddBooks")
+    @ResponseBody
+    public CommonDateResult batchAddBooks(MultipartFile file) {
+        //解析excel，并转化为实体类
+        List<Object> books = ExcelUtils.readExcel(file,"book");
+        log.info("excel解析结果：{}", books.toString());
+        CommonDateResult result = null;
+        if (books != null && books.size()>0){
+            //插入数据库中
+            result = bookService.insertBooks(books);
+        }
+        result.setData(books);
+        return result;
+    }
     /**
      * 查询图书
      *

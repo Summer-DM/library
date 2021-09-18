@@ -15,5 +15,4 @@ public interface BorrowDao {
 
     List<Borrow> findallBorrowbooks();
 
-    List<Borrow> queryBorrowers();
 }

@@ -16,20 +16,21 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao udao;
+
     @Override
     public User findUserByStuidAndPassword(String stuid, String password) {
-        return udao.findUserByStuidAndPassword(stuid,password);
+        return udao.findUserByStuidAndPassword(stuid, password);
     }
 
     @Override
     public CommonDateResult addUser(User user) {
         CommonDateResult resultSet = new CommonDateResult();
         int result = udao.addUser(user);
-        if (result > 0){
+        if (result > 0) {
             resultSet.setCode("1");
             resultSet.setMessage("新增用户成功");
             resultSet.setStatus(true);
-        }else {
+        } else {
             resultSet.setCode("0");
             resultSet.setMessage("新增用户失败！");
             resultSet.setStatus(false);
@@ -49,5 +50,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public int deleteUser(int id) {
         return udao.deleteUser(id);
+    }
+
+    @Override
+    public CommonDateResult insertUsers(List<User> userList) {
+        CommonDateResult resultSet = new CommonDateResult();
+        int result = udao.insertUsers(userList);
+        if (result > 0) {
+            resultSet.setCode("1");
+            resultSet.setMessage("批量导入成功");
+            resultSet.setStatus(true);
+        } else {
+            resultSet.setCode("0");
+            resultSet.setMessage("批量导入失败！");
+            resultSet.setStatus(false);
+        }
+        return resultSet;
     }
 }

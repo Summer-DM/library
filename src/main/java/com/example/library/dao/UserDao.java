@@ -15,4 +15,6 @@ public interface UserDao {
     List<User> findAllStu();
 
     int deleteUser(int id);
+
+    int insertUsers(@Param("users") List<User> userList);
 }

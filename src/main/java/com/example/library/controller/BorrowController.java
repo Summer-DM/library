@@ -1,5 +1,6 @@
 package com.example.library.controller;
 
+import com.example.library.commonResult.CommonDateResult;
 import com.example.library.model.Book;
 import com.example.library.model.Borrow;
 import com.example.library.model.User;
@@ -74,12 +75,27 @@ public class BorrowController {
      */
     @RequestMapping("myBorrow")
     public String myborrow(Map map, HttpSession session) {
-        String username = session.getAttribute("username").toString();
-        List<Borrow> borrowlist = borrowService.findAllMyBorrow(username);
-        map.put("borrowlist", borrowlist);
+        //String username = session.getAttribute("username").toString();
+        //List<Borrow> borrowlist = borrowService.findAllMyBorrow(username);
+        //map.put("borrowlist", borrowlist);
         return "borrow/myborrow";
     }
 
+    /**
+     * 查看我的借阅书籍页面
+     * @param request
+     * @param session
+     * @return
+     */
+    @RequestMapping("queryMyBorrow")
+    @ResponseBody
+    public PageInfo<Borrow> queryMyBorrow(HttpServletRequest request, HttpSession session) {
+        int pageNo = ParamUtils.getInt(request, "pageNo", 1); // 页码
+        int pageSize = ParamUtils.getInt(request, "pageSize", 10); // 取得显示条数
+        String username = session.getAttribute("username").toString();
+        PageInfo<Borrow> borrowlist = borrowService.queryMyBorrow(pageNo,pageSize,username);
+        return borrowlist;
+    }
     /**
      * 归还书籍
      * @param bid
@@ -115,7 +131,9 @@ public class BorrowController {
      * @throws ParseException
      */
     @RequestMapping("borrowbook")
-    public String borrowbook(@RequestParam("bookname") String bookname, @RequestParam("bid") int bid, HttpSession session) throws ParseException {
+    @ResponseBody
+    public CommonDateResult borrowbook(@RequestParam("bookname") String bookname, @RequestParam("bid") int bid, HttpSession session) throws ParseException {
+        CommonDateResult commonDateResult = new CommonDateResult();
         Borrow borrow = new Borrow();
         borrow.setBookname(bookname);
         borrow.setBid(bid);
@@ -127,6 +145,7 @@ public class BorrowController {
         borrowService.insertByBorrow(borrow);
         //更新书籍表中的借阅状态（1表示未借阅，2表示已借阅）
         bookService.updateBookByBid(bid);
-        return "redirect:borrowbooklist";
+        commonDateResult.setCode("1");
+        return commonDateResult;
     }
 }

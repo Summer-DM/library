@@ -35,33 +35,22 @@
     <div class="container">
         <div class="center-main pb20">
             <div class="ptb20 monitor">
-                <div class="logo">
-                    <h1>
-                        <a href="#" style="padding-left: 25px;color: #00F7DE">图书馆<span class="bold"></span></a>
-                    </h1>
-                    <p class="meta" style="padding-left: 40px">后台管理系统</p>
+<%--                <div class="logo">--%>
+<%--                    <h1>--%>
+<%--                        <a href="#" style="padding-left: 25px;color: #00F7DE">图书馆<span class="bold"></span></a>--%>
+<%--                    </h1>--%>
+<%--                    <p class="meta" style="padding-left: 40px">后台管理系统</p>--%>
+<%--                </div>--%>
+                <div class="layui-carousel" id="test10">
+                    <div carousel-item="" style="margin-top: 15px;">
+                        <div><img src="<%=request.getContextPath()%>/style/images/1.png"></div>
+                        <div><img src="<%=request.getContextPath()%>/style/images/2.png"></div>
+                    </div>
                 </div>
             </div>
 
             <!-- Button section -->
-            <div class="mt20 two-area monitor">
 
-                <!-- Buttons -->
-                <%--				<ul class="nav nav-pills">--%>
-                <%--					--%>
-                <%--					<li class="dropdown dropdown-big"><a class="dropdown-toggle"--%>
-                <%--						href="#"> <i class="icon-comments"></i> 认证申请 <span--%>
-                <%--							class="label label-info">0</span>--%>
-                <%--					</a></li>--%>
-
-                <%--					<li class="dropdown dropdown-big"><a class="dropdown-toggle"--%>
-                <%--						href="#"> <i class="icon-user"></i> 留言 <span--%>
-                <%--							class="label label-success">0</span>--%>
-                <%--					</a></li>--%>
-
-                <%--				</ul>--%>
-
-            </div>
             <!-- Data section -->
 
             <div class="mt20 two-area">
@@ -95,8 +84,41 @@
                         <div class="clearfix"></div>
                     </div>
                 </div>
+                <div class="mt20 two-area monitor">
+
+                    <!-- Buttons -->
+                    <ul class="nav nav-pills">
+
+                        <li class="dropdown dropdown-big"><a class="dropdown-toggle"
+                                                             href="#"> <i class="icon-comments"></i> 认证申请 <span
+                                class="label label-info">0</span>
+                        </a></li>
+
+                        <li class="dropdown dropdown-big"><a class="dropdown-toggle"
+                                                             href="#"> <i class="icon-user"></i> 留言 <span
+                                class="label label-success">0</span>
+                        </a></li>
+
+                    </ul>
+
+                </div>
             </div>
 
         </div>
     </div>
 </header>
+
+<script>
+    layui.use(['carousel', 'form'], function () {
+        var carousel = layui.carousel
+            , form = layui.form;
+        //图片轮播
+        carousel.render({
+            elem: '#test10'
+            ,width: '100%'
+            ,height: '100px'
+            ,interval: 5000
+        });
+
+    });
+</script>

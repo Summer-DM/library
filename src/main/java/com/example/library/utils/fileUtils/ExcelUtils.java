@@ -1,6 +1,7 @@
-package com.example.library.utils.fileUtiles;
+package com.example.library.utils.fileUtils;
 
 import com.example.library.model.Book;
+import com.example.library.model.User;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -59,7 +60,7 @@ public class ExcelUtils {
      * @param fileName 要读取的Excel文件所在路径
      * @return 读取结果列表，读取失败时返回null
      */
-    public static List<Book> readExcel(String fileName) {
+    public static List<Object> readExcel(String fileName,String sign) {
 
         Workbook workbook = null;
         FileInputStream inputStream = null;
@@ -78,7 +79,7 @@ public class ExcelUtils {
             workbook = getWorkbook(inputStream, fileType);
 
             // 读取excel中的数据
-            List<Book> resultDataList = parseExcel(workbook);
+            List<Object> resultDataList = parseExcel(workbook, sign);
 
             return resultDataList;
         } catch (Exception e) {
@@ -102,9 +103,10 @@ public class ExcelUtils {
     /**
      * 读取Excel文件内容
      * @param file 上传的Excel文件
+     * @param sign
      * @return 读取结果列表，读取失败时返回null
      */
-    public static List<Book> readExcel(MultipartFile file) {
+    public static List<Object> readExcel(MultipartFile file, String sign) {
 
         Workbook workbook = null;
 
@@ -126,7 +128,7 @@ public class ExcelUtils {
             workbook = getWorkbook(file.getInputStream(), fileType);
 
             // 读取excel中的数据
-            List<Book> resultDataList = parseExcel(workbook);
+            List<Object> resultDataList = parseExcel(workbook,sign);
 
             return resultDataList;
         } catch (Exception e) {
@@ -144,14 +146,14 @@ public class ExcelUtils {
         }
     }
 
-
     /**
      * 解析Excel数据
      * @param workbook Excel工作簿对象
+     * @param sign
      * @return 解析结果
      */
-    private static List<Book> parseExcel(Workbook workbook) {
-        List<Book> resultDataList = new ArrayList<>();
+    private static List<Object> parseExcel(Workbook workbook, String sign) {
+        List<Object> resultDataList = new ArrayList<>();
         //获取所有的工作表的的数量
         int numOfSheet = workbook.getNumberOfSheets();
         System.out.println(numOfSheet+"--->numOfSheet");
@@ -187,8 +189,14 @@ public class ExcelUtils {
                 if (null == row) {
                     continue;
                 }
-                //方法一（本项目使用）
-                Book resultData = convertRowToData(row);
+                Object resultData = null;
+                if ("book".equals(sign)){
+                    //用于批量导入书籍
+                    resultData = convertRowToBook(row);
+                }else if ("user".equals(sign)){
+                    //用于批量导入用户
+                    resultData = convertRowToUser(row);
+                }
                 if (null == resultData) {
                     logger.warn("第 " + row.getRowNum() + "行数据不合法，已忽略！");
                     continue;
@@ -198,6 +206,86 @@ public class ExcelUtils {
         }
 
         return resultDataList;
+    }
+    /**
+     * 提取每一行中需要的数据，构造成为一个结果数据对象
+     *将excel的内容赋给实体类model
+     * 当该行中有单元格的数据为空或不合法时，忽略该行的数据
+     *
+     * @param row 行数据
+     * @return 解析后的行数据对象，行数据错误时返回null
+     */
+    private static Object convertRowToUser(Row row) {
+        User resultData = new User();
+
+        Cell cell;
+        int cellNum = 0;
+
+        cell = row.getCell(cellNum++);
+        String username= convertCellValueToString(cell);
+        if (null == username || "".equals(username)) {
+            resultData.setUsername(username);
+        } else {
+            resultData.setUsername(username);
+        }
+
+        cell = row.getCell(cellNum++);
+        String sex = convertCellValueToString(cell);
+        if (null == sex || "".equals(sex)) {
+            resultData.setSex(sex);
+        } else {
+            resultData.setSex(sex);
+        }
+
+        cell = row.getCell(cellNum++);
+        String tel = convertCellValueToString(cell);
+        if (null == tel || "".equals(tel)) {
+            resultData.setTel(tel);
+        } else {
+            resultData.setTel(tel);
+        }
+
+        cell = row.getCell(cellNum++);
+        String institute = convertCellValueToString(cell);
+        if (null == institute || "".equals(institute)) {
+            resultData.setInstitute(institute);
+        } else {
+            resultData.setInstitute(institute);
+        }
+
+        cell = row.getCell(cellNum++);
+        String profession = convertCellValueToString(cell);
+        if (null == profession || "".equals(profession)) {
+            resultData.setProfession(profession);
+        } else {
+            resultData.setProfession(profession);
+        }
+
+        cell = row.getCell(cellNum++);
+        String classname = convertCellValueToString(cell);
+        if (null == classname || "".equals(classname)) {
+            resultData.setClassname(classname);
+        } else {
+            resultData.setClassname(classname);
+        }
+
+        cell = row.getCell(cellNum++);
+        String stuid = convertCellValueToString(cell);
+        if (null == stuid || "".equals(stuid)) {
+            resultData.setStuid(stuid);
+        } else {
+            resultData.setStuid(stuid);
+        }
+
+        cell = row.getCell(cellNum++);
+        String password = convertCellValueToString(cell);
+        if (null == password || "".equals(password)) {
+            resultData.setPassword(password);
+        } else {
+            resultData.setPassword(password);
+        }
+
+        return resultData;
     }
 
     /**
@@ -252,7 +340,7 @@ public class ExcelUtils {
      * @param row 行数据
      * @return 解析后的行数据对象，行数据错误时返回null
      */
-    private static Book convertRowToData(Row row) {
+    private static Book convertRowToBook(Row row) {
         Book resultData = new Book();
 
         Cell cell;
@@ -372,5 +460,4 @@ public class ExcelUtils {
         }
 
     }
-
 }

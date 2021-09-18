@@ -8,11 +8,11 @@ import java.util.List;
 public interface BorrowService {
     void insertByBorrow(Borrow borrow);
 
-    List<Borrow> findAllMyBorrow(String username);
+    PageInfo<Borrow> queryMyBorrow(int pageNo, int pageSize, String username);
 
     void delMyBorrow(int bid);
 
-    List<Borrow> findallBorrowbooks();
+    //List<Borrow> findallBorrowbooks();
 
     PageInfo<Borrow> queryBorrowers(int pageNo, int pageSize);
 }

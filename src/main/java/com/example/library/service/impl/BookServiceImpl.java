@@ -60,7 +60,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public CommonDateResult insertBooks(List<Book> books) {
+    public CommonDateResult insertBooks(List<Object> books) {
         CommonDateResult resultSet = new CommonDateResult();
         int result = bDao.insertBooks(books);
         if (result > 0){

@@ -61,10 +61,12 @@
         pageSize: 10,
     };
     borrowerList();
+
     function borrowerList() {
         layui.use('table', function () {
             var table = layui.table;
             var laypage = layui.laypage;
+
             function getborrowers() {
                 $.ajax({
                     url: "queryBorrowers",
@@ -72,50 +74,46 @@
                     data: borrowParam,
                     dateType: "JSON",
                     success: function (ret) {
-                        if (ret.size > 0) {
-                            total = ret.total;
-                            //首页表格渲染
-                            table.render({
-                                elem: '#borrowInfo',
-                                count: total,
-                                page: false, //表示不使用前端分页，强制使用后端请求分页
-                                limit: borrowParam.pageSize,
-                                data: ret.list,
-                                cols: [[
-                                    {field: 'id', width: '20%', title: '编号', sort: true},
-                                    {field: 'borrower', width: '20%', title: '借阅人'},
-                                    {field: 'borrowtime', title: '借阅时间', width: '20%', sort: true},
-                                    {field: 'bookname', width: '20%', title: '书名'},
-                                    {field: 'bid', width: '20%', title: '书籍编号', sort: true}
-                                ]],
-                                done: function () {
-                                    //分页
-                                    laypage.render({
-                                        elem: 'demo4',
-                                        count: total, //数据总数
-                                        limit: borrowParam.pageSize,
-                                        curr: borrowParam.pageNo,
-                                        layout:['prev', 'page', 'next' , 'limit' , 'skip'],
-                                        jump: function (obj, first) {
-                                            if (!first) {
-                                                borrowParam.pageNo = obj.curr;
-                                                borrowParam.pageSize = obj.limit;
-                                                borrowerList();
-                                            }
-                                        },
-                                    });
-                                }
-                            });
-                        } else {
-                            errorMsg("服务错误");
-                            // window.onload = "/library/admin/index";
-                        }
+                        total = ret.total;
+                        //首页表格渲染
+                        table.render({
+                            elem: '#borrowInfo',
+                            count: total,
+                            page: false, //表示不使用前端分页，强制使用后端请求分页
+                            limit: borrowParam.pageSize,
+                            data: ret.list,
+                            cols: [[
+                                {field: 'id', width: '20%', title: '编号', sort: true},
+                                {field: 'borrower', width: '20%', title: '借阅人'},
+                                {field: 'borrowtime', title: '借阅时间', width: '20%', sort: true},
+                                {field: 'bookname', width: '20%', title: '书名'},
+                                {field: 'bid', width: '20%', title: '书籍编号', sort: true}
+                            ]],
+                            done: function () {
+                                //分页
+                                laypage.render({
+                                    elem: 'demo4',
+                                    count: total, //数据总数
+                                    limit: borrowParam.pageSize,
+                                    curr: borrowParam.pageNo,
+                                    layout: ['prev', 'page', 'next', 'limit', 'skip'],
+                                    jump: function (obj, first) {
+                                        if (!first) {
+                                            borrowParam.pageNo = obj.curr;
+                                            borrowParam.pageSize = obj.limit;
+                                            borrowerList();
+                                        }
+                                    },
+                                });
+                            }
+                        });
                     },
                     error: function () {
                         errorMsg("系统异常");
                     }
                 });
             }
+
             getborrowers();
         });
     }

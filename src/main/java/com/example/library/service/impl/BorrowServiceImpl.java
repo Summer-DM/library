@@ -2,7 +2,6 @@ package com.example.library.service.impl;
 
 import com.example.library.dao.BorrowDao;
 import com.example.library.model.Borrow;
-import com.example.library.model.User;
 import com.example.library.service.BorrowService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -22,8 +21,12 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
     @Override
-    public List<Borrow> findAllMyBorrow(String username) {
-        return bDao.findAllMyBorrow(username);
+    public PageInfo<Borrow> queryMyBorrow(int pageNo, int pageSize, String username) {
+        //利用PageHelper分页查询 注意：这个一定要放查询语句的前一行,否则无法进行分页,因为它对紧随其后第一个sql语句有效
+        PageHelper.startPage(pageNo, pageSize);
+        List<Borrow> myBorrowList = bDao.findAllMyBorrow(username);
+        PageInfo<Borrow> pageInfo = new PageInfo<>(myBorrowList);
+        return pageInfo;
     }
 
     @Override
@@ -31,10 +34,10 @@ public class BorrowServiceImpl implements BorrowService {
         bDao.delMyBorrow(bid);
     }
 
-    @Override
-    public List<Borrow> findallBorrowbooks() {
-        return bDao.findallBorrowbooks();
-    }
+    //@Override
+    //public List<Borrow> findallBorrowbooks() {
+    //    return bDao.findallBorrowbooks();
+    //}
 
     @Override
     public PageInfo<Borrow> queryBorrowers(int pageNo, int pageSize) {

@@ -82,7 +82,8 @@
                                             <label class="layui-form-label">出版时间</label>
                                             <div class="layui-input-block">
                                                 <input type="text" class="layui-input" name="publicationdate"
-                                                       id="publicationdate" placeholder="年年年年-月月-日日"  lay-verify="required">
+                                                       id="publicationdate" placeholder="年年年年-月月-日日"
+                                                       lay-verify="required">
                                             </div>
                                         </div>
 

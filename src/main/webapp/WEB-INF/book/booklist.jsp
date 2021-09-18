@@ -24,9 +24,10 @@
         <div class="page-head">
             <h2 class="pull-left"><i class="icon-home"></i> 首页</h2>
             <div class="bread-crumb pull-right" style="margin-left: 15px;">
-                <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" id="fileUpload">
+                <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" id="bookFileUpload">
                     <i class="layui-icon">&#xe67c;</i>文件导入
                 </button>
+                <a href="#" onclick="getBookFile()" style="color: #cb2027;font-size: large;">导入模板下载</a>
             </div>
             <div class="bread-crumb pull-right">
                 <a href="http://localhost:8080/library/book/addbookUI" class="btn btn-active"> 添加图书</a>
@@ -70,10 +71,12 @@
         pageSize: 10,
     };
     books();
+
     function books() {
         layui.use('table', function () {
             var table = layui.table;
             var laypage = layui.laypage;
+
             function getObj() {
                 $.ajax({
                     url: "queryBooks",
@@ -92,7 +95,12 @@
                                 data: ret.list,
                                 cols: [[
                                     {field: 'bid', width: '5%', title: '编号', sort: true},
-                                    {field: 'bookname', width: '15%', title: '书名'},
+                                    {
+                                        field: 'bookname',
+                                        width: '15%',
+                                        title: '书名',
+                                        style: "color: #cb2027;font-size: large;"
+                                    },
                                     {field: 'author', width: '15%', title: '作者'},
                                     {field: 'booktype', width: '10%', title: '类型'},
                                     {field: 'publisher', title: '出版单位', width: '15%'},
@@ -101,17 +109,18 @@
                                     {
                                         field: 'bookstate', title: '借阅状态', width: '10%',
                                         templet: function (d) {
-                                            if (d.bookstate == "1") {
+                                            if (d.bookstate == "2") {
                                                 return "已借阅";
-                                            } else if (d.bookstate == "2") {
+                                            } else if (d.bookstate == "1") {
                                                 return "未借阅";
                                             }
                                         },
                                     },
                                     {field: 'comment', title: '备注', width: '10%'},
-                                    {field: 're', title: '操作', width: '5%',
+                                    {
+                                        field: 're', title: '操作', width: '5%',
                                         templet: function (d) {
-                                            return '<a class="btn btn-active" href="delete?bid='+d.bid+'">删除</a>';
+                                            return '<a class="btn btn-active" href="delete?bid=' + d.bid + '">删除</a>';
                                         }
                                     }
                                 ]],
@@ -122,7 +131,7 @@
                                         count: total, //数据总数
                                         limit: qparam.pageSize,
                                         curr: qparam.pageNo,
-                                        layout:['prev', 'page', 'next' , 'limit' , 'skip'],
+                                        layout: ['prev', 'page', 'next', 'limit', 'skip'],
                                         jump: function (obj, first) {
                                             if (!first) {
                                                 qparam.pageNo = obj.curr;
@@ -143,6 +152,7 @@
                     }
                 });
             }
+
             getObj();
         });
     }
@@ -150,27 +160,33 @@
     /**
      * 文件上传--批量导入
      */
-    layui.use('upload', function(){
+    layui.use('upload', function () {
         var upload = layui.upload;
         var layer = layui.layer;
         // layer.msg('上传中', {icon: 16, time: 0,shade: 0.3});
         //执行实例
         var uploadInst = upload.render({
-            elem: '#fileUpload', //绑定元素
-            url: '/library/file/uploadFile/', //上传接口
+            elem: '#bookFileUpload', //绑定元素
+            url: '/library/book/batchAddBooks/', //上传接口
             exts: 'xlsx|xls', //限制文件类型
-            done: function(res){
+            done: function (res) {
                 //上传完毕回调
-                if (res.code == '1'){
+                if (res.code == '1') {
                     successMsg("导入成功");
-                }else {
-                    errorMsg("导入失败"+res);
+                } else {
+                    errorMsg("导入失败" + res);
                 }
             },
-            error: function(res){
+            error: function (res) {
                 //请求异常回调
-                errorMsg("系统异常"+res);
+                errorMsg("系统异常" + res);
             }
         });
     });
+
+    function getBookFile() {
+        let url = '/library/file/downloadFile?fileType=' + 'book';
+        window.open(url, '_blank');
+        return false;
+    }
 </script>

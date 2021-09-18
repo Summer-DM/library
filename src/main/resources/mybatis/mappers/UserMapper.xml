@@ -15,4 +15,16 @@
     <delete id="deleteUser">
         delete from user where id=#{id}
     </delete>
+    <insert id="insertUsers">
+        insert into user(username,sex,tel,institute,profession,classname,stuid,password)
+        values
+        <foreach collection="users" index="" item="item" separator=",">
+            (
+            #{item.username,jdbcType=VARCHAR}, #{item.sex,jdbcType=VARCHAR}, #{item.tel,jdbcType=VARCHAR},
+            #{item.institute,jdbcType=VARCHAR}, #{item.profession,jdbcType=VARCHAR},
+            #{item.classname,jdbcType=VARCHAR}, #{item.stuid,jdbcType=VARCHAR},
+            #{item.password,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
 </mapper>

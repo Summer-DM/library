@@ -179,9 +179,9 @@
                                     {
                                         field: 'bookstate', title: '借阅状态', width: '10%',
                                         templet: function (d) {
-                                            if (d.bookstate == "1") {
+                                            if (d.bookstate == "2") {
                                                 return "已借阅";
-                                            } else if (d.bookstate == "2") {
+                                            } else if (d.bookstate == "1") {
                                                 return "未借阅";
                                             }
                                         },

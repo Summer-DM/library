@@ -2,6 +2,8 @@ package com.example.library.model;
 
 import lombok.Data;
 
+import java.util.Date;
+
 /**
  * 登录用户（学生）表
  */
@@ -27,4 +29,8 @@ public class User {
     private String password;
     //用户类型：0管理员，1普通用户
     private String type;
+    //用户创建时间
+    private Date createTime;
+    //用户修改更新时间
+    private Date  updateTime;
 }
