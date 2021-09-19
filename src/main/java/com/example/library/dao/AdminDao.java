@@ -10,4 +10,6 @@ public interface AdminDao {
     Admin findAdminByStuidAndPassword(@Param("stuid") String stuid, @Param("password")String password);
 
     void addAdmin(Admin admin);
+
+    int updatePassword(int id, String oldPassword, String newPassword);
 }

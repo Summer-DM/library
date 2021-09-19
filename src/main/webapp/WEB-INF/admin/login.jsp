@@ -10,7 +10,7 @@
     <meta name="description" content=""/>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <jsp:include page="../commons/css.jsp"></jsp:include>
     <link rel="stylesheet"
           href="<%=request.getContextPath()%>/style/admin/style/font-awesome.css"/>
     <link rel="stylesheet"
@@ -22,7 +22,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
-<%--    <jsp:include page="../commons/css.jsp"></jsp:include>--%>
 </head>
 
 <body class="templatemo-bg-gray">
@@ -67,35 +66,10 @@
                 </div>
             </div>
             <hr>
-
         </form>
-<%--        <div class="text-center">--%>
-<%--            <a href="http://localhost:8080/library/admin/toregist" class="templatemo-create-new">学生注册<i--%>
-<%--                    class="fa fa-arrow-circle-o-right"></i></a>--%>
-<%--        </div>--%>
     </div>
 </div>
-
-
-<!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="padding-top: 200px">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel">消息提示框</h4>
-            </div>
-            <div class="modal-body">登录成功</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
 </body>
-
 </html>
 <script>
     function login() {
@@ -113,20 +87,11 @@
                         //页面跳转-》主页面
                         window.location.href = "index"
                     } else if (data == "false") {
-                        //换掉模态框里的内容html(),text(),val()
-                        // $(".modal-body").text("用户不存在，请前往注册或者重新输入正确的用户");
                         errorMsg("用户不存在，请前往注册或者重新输入正确的用户")
-                        //显示模态框
-                        // $('#myModal').modal('show')
-                    } else {
-                        //换掉模态框里的内容html(),text(),val()
-                        $(".modal-body").text("请仔细检查您的用户名或密码是否输入正确");
-                        //显示模态框
-                        $('#myModal').modal('show')
                     }
                 },
                 error: function () {//请求失败函数
-                    alert("登录失败");
+                    errorMsg("登录失败");
                 }
             }
         );

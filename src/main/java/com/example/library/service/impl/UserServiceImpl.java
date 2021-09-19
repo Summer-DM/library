@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
             resultSet.setMessage("新增用户成功");
             resultSet.setStatus(true);
         } else {
-            resultSet.setCode("0");
+            resultSet.setCode("-1");
             resultSet.setMessage("新增用户失败！");
             resultSet.setStatus(false);
         }
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
             resultSet.setMessage("批量导入成功");
             resultSet.setStatus(true);
         } else {
-            resultSet.setCode("0");
+            resultSet.setCode("-1");
             resultSet.setMessage("批量导入失败！");
             resultSet.setStatus(false);
         }

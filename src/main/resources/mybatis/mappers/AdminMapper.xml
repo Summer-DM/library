@@ -9,4 +9,9 @@
     <select id="findAdminByStuidAndPassword" resultType="com.example.library.model.Admin">
         select * from admins where stuid=#{stuid} and password=#{password}
     </select>
+    <update id="updatePassword">
+        update user
+        set password=#{newPassword}
+        where id = #{id}
+    </update>
 </mapper>

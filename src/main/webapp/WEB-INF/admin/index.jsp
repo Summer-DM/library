@@ -170,7 +170,7 @@
                                 data: ret.list,
                                 cols: [[
                                     {field: 'bid', width: '5%', title: '编号', sort: true},
-                                    {field: 'bookname', width: '15%', title: '书名',event: 'showBookIntroduction',style:'cursor: pointer;'},
+                                    {field: 'bookname', width: '15%', title: '书名',event: 'showBookIntroduction',style:'cursor: pointer;color: blue;font-size: small;text-decoration:underline'},
                                     {field: 'author', width: '15%', title: '作者'},
                                     {field: 'booktype', width: '10%', title: '类型'},
                                     {field: 'publisher', title: '出版单位', width: '15%'},

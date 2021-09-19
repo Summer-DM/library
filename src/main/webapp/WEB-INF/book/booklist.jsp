@@ -98,8 +98,7 @@
                                     {
                                         field: 'bookname',
                                         width: '15%',
-                                        title: '书名',
-                                        style: "color: #cb2027;font-size: large;"
+                                        title: '书名'
                                     },
                                     {field: 'author', width: '15%', title: '作者'},
                                     {field: 'booktype', width: '10%', title: '类型'},

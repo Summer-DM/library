@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <!-- Title and other stuffs -->
-    <title>添加管理员</title>
+    <title>添加书籍</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <jsp:include page="../commons/css.jsp"></jsp:include>
 </head>

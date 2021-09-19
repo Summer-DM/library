@@ -12,13 +12,13 @@
             <ul class="nav navbar-nav pull-right">
                 <spap><font color="red"> ${username}</font></spap>
                 <li class="dropdown pull-right">
-                    <a data-toggle="dropdown" class="dropdown-toggle" href="#"> <i class="icon-user"></i>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#" style="font-size: x-large;"> <i class="icon-user"></i>
                         <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <c:if test="${type == '0'}">
-                            <li><a href="<%=request.getContextPath()%>/user/addAdmin"><i class="icon-edit"></i>
-                                添加管理员</a></li>
-                        </c:if>
+<%--                        <c:if test="${type == '0'}">--%>
+<%--                            <li><a href="<%=request.getContextPath()%>/user/addAdmin"><i class="icon-edit"></i>--%>
+<%--                                添加管理员</a></li>--%>
+<%--                        </c:if>--%>
                         <li><a href="<%=request.getContextPath()%>/admin/updatepwd"><i class="icon-key"></i> 修改密码</a>
                         </li>
                         <li><a href="http://localhost:8080/library/admin/logout"><i class="icon-off"></i> 退出</a></li>

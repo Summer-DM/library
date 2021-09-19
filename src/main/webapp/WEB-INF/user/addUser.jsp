@@ -124,7 +124,6 @@
                 type: "POST",
                 dateType: "JSON",
                 success: function (ret) {
-                    debugger
                     if (ret.size > 0) {
                         successMsg("添加成功！");
                         window.onload = "/library/user/findAllStu";

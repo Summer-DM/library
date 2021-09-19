@@ -68,7 +68,7 @@ public class BookServiceImpl implements BookService {
             resultSet.setMessage("批量导入成功");
             resultSet.setStatus(true);
         }else {
-            resultSet.setCode("0");
+            resultSet.setCode("-1");
             resultSet.setMessage("批量导入失败！");
             resultSet.setStatus(false);
         }
