@@ -126,7 +126,12 @@ public class UserController {
                 }
             }
             //插入数据库中
-            result = userService.insertUsers(userList);
+            if (userList != null && userList.size()>0){
+                result = userService.insertUsers(userList);
+            }else {
+                result.setMessage("表中用户数据全部已存在，请修改后重新录入！！！");
+                result.setCode("2");
+            }
         }
         result.setData(users);
         return result;

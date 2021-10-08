@@ -162,7 +162,7 @@
                 if (res.code == '1') {
                     successMsg("导入成功");
                 } else {
-                    errorMsg("导入失败" + res);
+                    errorMsg("导入失败:" + res.message);
                 }
             },
             error: function (res) {
