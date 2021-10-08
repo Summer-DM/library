@@ -88,7 +88,7 @@
     </select>
     <update id="updateBookAmountById">
         update book
-        set total = total + 1
+        set total = total - 1
         where bid = #{bid}
     </update>
     <update id="updateBookReserveById">
