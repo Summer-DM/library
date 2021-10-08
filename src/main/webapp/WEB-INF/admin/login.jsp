@@ -96,4 +96,12 @@
             }
         );
     }
+
+    //登录回车事件
+    $(document).keydown(function (e) {
+        if (e.keyCode == 13) {
+            login();
+        }
+    });
+
 </script>

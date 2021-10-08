@@ -50,6 +50,7 @@ public class LoginFilter implements Filter {
                 return;
             } else {
                 hsp.sendRedirect(projectName + "/admin/login");//未登录，跳转到登录页面
+                hsr.getSession().invalidate();
                 return;
             }
         }

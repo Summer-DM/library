@@ -19,16 +19,8 @@
 <jsp:include page="../commons/head.jsp"></jsp:include>
 <!-- 左边菜单 -->
 <jsp:include page="../commons/leftList.jsp"></jsp:include>
+<jsp:include page="../commons/litleTile.jsp"></jsp:include>
 <div class="mainbar">
-    <div class="page-head">
-        <h2 class="pull-left"><i class="icon-home"></i> 首页</h2>
-        <div class="bread-crumb pull-right">
-            <a href="#"><i class="icon-home"></i> 首页</a>
-            <span class="divider">/</span>
-            <a href="#" class="bread-current">控制台</a>
-        </div>
-        <div class="clearfix"></div>
-    </div>
     <!-- Matter -->
     <div class="matter">
         <div class="container">

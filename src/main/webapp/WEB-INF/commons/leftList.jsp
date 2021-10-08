@@ -11,6 +11,7 @@
 <%
     User user = (User) request.getSession().getAttribute("user");
     System.out.println("用户信息：" + user);
+    System.out.println("2222222：" +  request.getSession().toString());
     String type = "";
     if (null != user) {
         type = user.getType();

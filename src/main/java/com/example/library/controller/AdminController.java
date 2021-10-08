@@ -103,7 +103,7 @@ public class AdminController {
 
     //修改密码
     @RequestMapping("updatepwd")
-    public String updatepwd(HttpSession session) {
+    public String updatepwd() {
         return "admin/changePassword";
     }
 
@@ -126,6 +126,12 @@ public class AdminController {
         if (user == null) {
             commonDateResult.setCode("-1");
             commonDateResult.setMessage("用户未登录！");
+            return commonDateResult;
+        }
+        if (!newPassword.equals(newConfirmPassword)){
+            commonDateResult.setCode("-1");
+            commonDateResult.setMessage("新密码与确认密码不一致，请重新输入！");
+            return commonDateResult;
         }
         String pwd = DigestUtils.md5DigestAsHex(newPassword.getBytes());
         CommonDateResult dataResultSet = adService.changPassword(user.getId(), oldPassword, pwd);

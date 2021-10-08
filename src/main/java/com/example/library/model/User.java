@@ -2,13 +2,17 @@ package com.example.library.model;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * 登录用户（学生）表
+ * @author Summer_DM
  */
 @Data
-public class User {
+public class User  implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     //主键ID
     private int id;
     //用户名

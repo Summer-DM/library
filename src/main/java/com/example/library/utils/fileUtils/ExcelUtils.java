@@ -285,6 +285,14 @@ public class ExcelUtils {
             resultData.setPassword(password);
         }
 
+        cell = row.getCell(cellNum++);
+        String type = convertCellValueToString(cell);
+        if (null == type || "".equals(type)) {
+            resultData.setType(type);
+        } else {
+            resultData.setType(type);
+        }
+
         return resultData;
     }
 

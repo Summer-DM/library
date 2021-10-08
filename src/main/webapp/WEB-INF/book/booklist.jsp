@@ -27,10 +27,12 @@
                 <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" id="bookFileUpload">
                     <i class="layui-icon">&#xe67c;</i>文件导入
                 </button>
-                <a href="#" onclick="getBookFile()" style="color: #cb2027;font-size: large;">导入模板下载</a>
+                <a href="#" onclick="getBookFile()" style="color: #cb2027;font-size: large;text-decoration:underline">导入模板下载</a>
             </div>
             <div class="bread-crumb pull-right">
-                <a href="http://localhost:8080/library/book/addbookUI" class="btn btn-active"> 添加图书</a>
+                <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" onclick="openAddBook()">
+                    <i class="layui-icon">&#xe67c;</i>添加图书
+                </button>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -187,5 +189,8 @@
         let url = '/library/file/downloadFile?fileType=' + 'book';
         window.open(url, '_blank');
         return false;
+    }
+    function openAddBook() {
+       window.location.href='http://localhost:8080/library/book/addbookUI';
     }
 </script>

@@ -31,19 +31,10 @@
 <jsp:include page="../commons/head.jsp"></jsp:include>
 <!-- 左边菜单 -->
 <jsp:include page="../commons/leftList.jsp"></jsp:include>
+<jsp:include page="../commons/litleTile.jsp"></jsp:include>
 <!-- 内容 -->
 <div class="content">
     <div class="mainbar">
-        <div class="page-head">
-            <h2 class="pull-left"><i class="icon-home"></i> 首页</h2>
-            <div class="bread-crumb pull-right">
-                <a href="http://localhost:8080/library/admin/index"><i class="icon-home"></i> 首页</a>
-                <span class="divider">/</span>
-                <a href="#" class="bread-current" onclick="control()">控制台</a>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <!-- Matter -->
         <div class="matter">
             <div class="container">
                 <div class="row">
@@ -106,6 +97,7 @@
 
     bookType();
     bookList();
+    // updatePwd();
 
     /**
      * 书籍类型初始化
@@ -238,5 +230,25 @@
         // layer.alert('酷毙了', {icon: 1});
         errorMsg("完犊子");
     }
+
+    /**
+     * 首页打开，弹窗，您是否前往修改密码？
+     */
+    // function updatePwd() {
+    //     layui.use('layer', function () {
+    //         var layer = layui.layer;
+    //         layer.open({
+    //             content: "登录成功，您的密码过于简单，是否需要立即修改密码？",
+    //             btn: ['确定', '取消'],
+    //             yes: function (index) {
+    //                 layer.close(index);
+    //                 window.location.href = '/library/admin/updatepwd';
+    //             }
+    //             ,cancel: function (index){
+    //                 layer.close(index);
+    //             }
+    //         });
+    //     });
+    // }
 
 </script>

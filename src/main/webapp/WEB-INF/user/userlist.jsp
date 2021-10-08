@@ -27,7 +27,7 @@
                 <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" id="userFileUpload">
                     <i class="layui-icon">&#xe67c;</i>导入用户
                 </button>
-                <a href="#" onclick="getUserFile()" style="color: #cb2027;font-size: large;">导入模板下载</a>
+                <a href="#" onclick="getUserFile()" style="color: #cb2027;font-size: large;text-decoration:underline">导入模板下载</a>
             </div>
             <div class="bread-crumb pull-right" style="margin-left: 15px;">
                 <button type="button" class="layui-btn layui-btn-normal layui-btn-radius" onclick="userRegist()">用户录入
