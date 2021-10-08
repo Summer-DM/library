@@ -179,6 +179,8 @@
                                         },
                                     },
                                     {field: 'comment', title: '备注', width: '15%'},
+                                    {field: 'last_reserve', title: '剩余库存', width: '10%'},
+                                    {field: 'total', title: '总库存', width: '10%'},
                                 ]],
                                 done: function () {
                                     //分页

@@ -27,4 +27,7 @@
             )
         </foreach>
     </insert>
+    <select id="checkUserExists">
+        select 1 from user where username=#{username} and stuid=#{stuid} limit 1
+    </select>
 </mapper>

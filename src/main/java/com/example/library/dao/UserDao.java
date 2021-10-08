@@ -17,4 +17,6 @@ public interface UserDao {
     int deleteUser(int id);
 
     int insertUsers(@Param("users") List<User> userList);
+
+    boolean checkUserExists(String username, String stuid);
 }

@@ -107,6 +107,8 @@ public class BorrowController {
         borrowService.delMyBorrow(bid);
         //2.更新书籍表中的借阅状态
         bookService.upBookByBid(bid);
+        //3、剩余库存+1
+        bookService.updateBookReserveByBId(bid);
         return "redirect:myBorrow";
     }
 
@@ -145,6 +147,8 @@ public class BorrowController {
         borrowService.insertByBorrow(borrow);
         //更新书籍表中的借阅状态（1表示未借阅，2表示已借阅）
         bookService.updateBookByBid(bid);
+        //更新库存状态（总库存不变，剩余库存-1）
+        bookService.updateBookReserveById(bid);
         commonDateResult.setCode("1");
         return commonDateResult;
     }

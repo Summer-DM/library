@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -57,8 +58,15 @@ public class BookController {
     //删除图书
     @RequestMapping("delete")
     public String delete(@RequestParam("bid") int bid) {
-        int result = bookService.deleteBookById(bid);
-        if (result == 1) {
+        int result = 0;
+        //根据书籍ID去查询库存，如果是多条，则总库存-1；如果是一条，则直接删除
+        int bookAmount = bookService.getBookAmount(bid);
+        if (bookAmount > 1){
+            result = bookService.updateBookAmountById(bid);
+        }else {
+            result = bookService.deleteBookById(bid);
+        }
+        if (result >= 1) {
             log.info("删除图书成功！");
             return "redirect:booklist";
         } else {
@@ -87,9 +95,17 @@ public class BookController {
         book.setPrice(ParamUtils.getInt(request, "price", 10));
         book.setBookstate(ParamUtils.getString(request, "bookstate", ""));
         book.setComment(ParamUtils.getString(request, "comment", ""));
-
-        int n = bookService.addBook(book);
-        if (n == 1) {
+        //先去查询数据库中是否已有相同书籍
+        int num = bookService.checkBook(book.getBookname(),book.getAuthor());
+        int result = 0;
+        if (num > 0){
+            //有相同书籍，则总数+1(如果是未借阅则，剩余库存+1)
+            result = bookService.updateBookAmount(book.getBookname(),book.getAuthor(),book.getBookstate());
+        }else {
+            //没有则新增一条
+            result = bookService.addBook(book);
+        }
+        if (result > 0) {
             log.info("添加图书成功！");
             return "success";
         } else {
@@ -108,11 +124,25 @@ public class BookController {
     public CommonDateResult batchAddBooks(MultipartFile file) {
         //解析excel，并转化为实体类
         List<Object> books = ExcelUtils.readExcel(file,"book");
-        log.info("excel解析结果：{}", books.toString());
+        log.info("批量导入书籍excel解析结果：{}", books.toString());
         CommonDateResult result = null;
+        List<Book> bookList = new ArrayList<>();
         if (books != null && books.size()>0){
-            //插入数据库中
-            result = bookService.insertBooks(books);
+            for (Object book: books){
+                Book bo = (Book)book;
+                //先去查询数据库中是否已有相同书籍
+                int num = bookService.checkBook(bo.getBookname(),bo.getAuthor());
+                if (num > 0){
+                    //如果数据库中已存在，则此条记录总数+1，如果状态为1，则剩余库存+1
+                    bookService.updateBookAmount(bo.getBookname(),bo.getAuthor(),bo.getBookstate());
+                }else {
+                    bookList.add(bo);
+                }
+            }
+            if (bookList != null && bookList.size()>0){
+                //插入数据库中
+                result = bookService.insertBooks(bookList);
+            }
         }
         result.setData(books);
         return result;

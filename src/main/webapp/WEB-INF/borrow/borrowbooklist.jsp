@@ -17,7 +17,6 @@
 <jsp:include page="../commons/head.jsp"></jsp:include>
 <!-- 左边菜单 -->
 <jsp:include page="../commons/leftList.jsp"></jsp:include>
-
 <div class="content">
     <!-- 内容 -->
     <div class="mainbar">
@@ -85,8 +84,8 @@
                             data: ret.list,
                             cols: [[
                                 {field: 'bid', width: '5%', title: '编号', sort: true},
-                                {field: 'bookname', width: '15%', title: '书名'},
-                                {field: 'author', width: '15%', title: '作者'},
+                                {field: 'bookname', width: '10%', title: '书名'},
+                                {field: 'author', width: '10%', title: '作者'},
                                 {field: 'booktype', width: '10%', title: '类型'},
                                 {field: 'publisher', title: '出版单位', width: '15%'},
                                 {field: 'publicationdate', title: '出版时间', width: '10%', sort: true},
@@ -102,12 +101,14 @@
                                     },
                                 },
                                 {field: 'comment', title: '备注', width: '10%'},
+                                {field: 'last_reserve', title: '剩余库存', width: '10%'},
+                                {field: 'total', title: '总库存', width: '10%'},
                                 {
                                     field: 're', title: '操作', width: '5%',
                                     templet: function (d) {
-                                        if (d.bookstate == "2") {
+                                        if (parseInt(d.last_reserve) <= 0) {
                                             return '<a class="btn btn-active" style="background-color: #999;border-color: #999" disabled="disabled">借阅</a>';
-                                        } else if (d.bookstate == "1") {
+                                        } else if (parseInt(d.last_reserve) > 0) {
                                             // return '<a class="btn btn-active" href="borrowbook?bookname='+d.bookname +'&bid='+d.bid+'" onclick="openNew()">借阅</a>';
                                             return '<a class="btn btn-active" id="' + d.bid + '" href="#" onclick="openNew(' + '\'' + d.bookname + '\'' + ',' + '\'' + d.bid + '\'' + ')">借阅</a>';
                                         }
@@ -144,6 +145,11 @@
         });
     }
 
+    /**
+     * 借阅
+     * @param bookname
+     * @param bid
+     */
     function openNew(bookname, bid) {
         $.ajax({
             url: "borrowbook",

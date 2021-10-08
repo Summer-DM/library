@@ -65,4 +65,40 @@
             )
         </foreach>
     </insert>
+    <select id="checkBook" resultType="java.lang.Integer">
+        select 1
+        from book
+        where bookname = #{bookname}
+          and author = #{author} limit 1
+    </select>
+    <update id="updateBookAmount">
+        update book set total = total + 1 ,
+        <if test="type == '1'">
+            last_reserve= last_reserve + 1
+        </if>
+        where bookname = #{bookname}
+        and author = #{author}
+    </update>
+    <insert id="getTime" useGeneratedKeys="true" keyProperty="bid" parameterType="com.example.library.model.Book">
+        insert into book(bookname,author)
+        values(#{bookname},#{author})
+    </insert>
+    <select id="getBookAmount" resultType="java.lang.Integer">
+        select total from book where bid = #{bid}
+    </select>
+    <update id="updateBookAmountById">
+        update book
+        set total = total + 1
+        where bid = #{bid}
+    </update>
+    <update id="updateBookReserveById">
+        update book
+        set last_reserve = last_reserve - 1
+        where bid = #{bid}
+    </update>
+    <update id="updateBookReserveByBId">
+        update book
+        set last_reserve = last_reserve + 1
+        where bid = #{bid}
+    </update>
 </mapper>

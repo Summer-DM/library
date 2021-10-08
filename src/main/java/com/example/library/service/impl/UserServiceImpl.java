@@ -67,4 +67,10 @@ public class UserServiceImpl implements UserService {
         }
         return resultSet;
     }
+
+    @Override
+    public boolean checkUserExists(String username, String stuid) {
+        boolean userExists = udao.checkUserExists(username, stuid);
+        return userExists;
+    }
 }

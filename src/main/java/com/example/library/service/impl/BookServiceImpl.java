@@ -60,7 +60,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public CommonDateResult insertBooks(List<Object> books) {
+    public CommonDateResult insertBooks(List<Book> books) {
         CommonDateResult resultSet = new CommonDateResult();
         int result = bDao.insertBooks(books);
         if (result > 0){
@@ -73,5 +73,44 @@ public class BookServiceImpl implements BookService {
             resultSet.setStatus(false);
         }
         return resultSet;
+    }
+
+    @Override
+    public int checkBook(String bookName, String author) {
+        int result = bDao.checkBook(bookName,author);
+        return result;
+    }
+
+    @Override
+    public int updateBookAmount(String bookName, String author, String type) {
+        int result = bDao.updateBookAmount(bookName,author,type);
+        return result;
+    }
+
+    @Override
+    public int getTime(Book book) {
+       int result = bDao.getTime(book);
+        return result;
+    }
+
+    @Override
+    public int getBookAmount(int bid) {
+        int result = bDao.getBookAmount(bid);
+        return result;
+    }
+
+    @Override
+    public int updateBookAmountById(int bid) {
+        int result = bDao.updateBookAmountById(bid);
+        return result;
+    }
+
+    @Override
+    public void updateBookReserveById(int bid) {
+        bDao.updateBookReserveById(bid);
+    }
+    @Override
+    public void updateBookReserveByBId(int bid) {
+        bDao.updateBookReserveByBId(bid);
     }
 }

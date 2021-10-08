@@ -17,4 +17,6 @@ public interface UserService {
     int deleteUser(int id);
 
     CommonDateResult insertUsers(List<User> userList);
+
+    boolean checkUserExists(String username, String stuid);
 }

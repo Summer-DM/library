@@ -81,9 +81,19 @@ public class UserController {
     @RequestMapping("addUser")
     @ResponseBody
     public CommonDateResult addUser(User user) {
-        //使用md5加密算法对密码加密
-        user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
-        CommonDateResult result = userService.addUser(user);
+        CommonDateResult result = null;
+        //判断用户是否已存在？
+        boolean userExists = userService.checkUserExists(user.getUsername(), user.getStuid());
+        if (userExists){
+            //如果存在，则不添加
+            result = new CommonDateResult();
+            result.setCode("2");
+            result.setMessage("用户已存在，请勿重复添加！！！");
+        }else {
+            //使用md5加密算法对密码加密
+            user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
+            result = userService.addUser(user);
+        }
         return result;
     }
 
@@ -104,9 +114,16 @@ public class UserController {
         if (users != null && users.size()>0){
             for (int i = 0;i<users.size();i++){
                 User user =(User) users.get(i);
-                //给用户的密码加密
-                user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
-                userList.add(user);
+                //判断用户是否已存在？
+                boolean userExists = userService.checkUserExists(user.getUsername(), user.getStuid());
+                if (userExists){
+                    //如果存在，则不添加
+                    continue;
+                }else {
+                    //给用户的密码加密
+                    user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
+                    userList.add(user);
+                }
             }
             //插入数据库中
             result = userService.insertUsers(userList);

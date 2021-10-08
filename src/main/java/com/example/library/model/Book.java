@@ -25,4 +25,8 @@ public class Book {
     private String bookstate;
     //备注
     private String comment;
+    //总库存
+    private String total;
+    //剩余库存(可借阅的书籍)
+    private String last_reserve;
 }

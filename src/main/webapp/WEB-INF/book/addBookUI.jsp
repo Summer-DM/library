@@ -11,25 +11,22 @@
     <title>添加书籍</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <jsp:include page="../commons/css.jsp"></jsp:include>
+    <style type="text/css">
+        .checkbox-inline {
+            padding-top: 3px;
+        }
+
+    </style>
 </head>
 <body>
 <!-- 头部 -->
 <jsp:include page="../commons/head.jsp"></jsp:include>
 <!-- 左边菜单 -->
 <jsp:include page="../commons/leftList.jsp"></jsp:include>
+<jsp:include page="../commons/litleTile.jsp"></jsp:include>
 <div class="content">
     <!-- 内容 -->
     <div class="mainbar">
-        <div class="page-head">
-            <h2 class="pull-left"><i class="icon-home"></i> 首页</h2>
-            <div class="bread-crumb pull-right">
-                <a href="#"><i class="icon-home"></i> 首页</a>
-                <span class="divider">/</span>
-                <a href="#" class="bread-current">控制台</a>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-
         <!-- Matter -->
         <div class="matter">
             <div class="container">
@@ -65,11 +62,17 @@
                                         </div>
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">书籍类型</label>
-                                            <div class="layui-input-block">
-                                                <select name="btype" id="btype">
-                                                </select>
+                                            <div class="layui-input-block" name="booktype" id="booktype" >
                                             </div>
                                         </div>
+<%--                                        <div class="layui-form-item">--%>
+<%--                                            <label class="layui-form-label">书籍类型</label>--%>
+<%--                                            <div class="layui-input-block">--%>
+<%--                                                <select name="booktype" id="booktype" lay-verify="required">--%>
+<%--                                                    <option value=""></option>--%>
+<%--                                                </select>--%>
+<%--                                            </div>--%>
+<%--                                        </div>--%>
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">出版单位</label>
                                             <div class="layui-input-block">
@@ -155,12 +158,13 @@
             dateType: "JSON",
             success: function (ret) {
                 if (ret.code == 1) {
-                    var contentContainer = $("#btype");
+                    var contentContainer = $("#booktype");
                     contentContainer.empty();
                     contentContainer.html('');
                     var list = ret.data;
                     for (var i = 0; i < list.length; i++) {
-                        contentContainer.append('<option value=' + list[i]["dic_code"] + '>' + list[i]["dic_value"] + '</option>')
+                        // contentContainer.append('<option value=' + list[i]["dic_code"] + '>' + list[i]["dic_value"] + '</option>')
+                        contentContainer.append('<input type="checkbox" name = "booktype" lay-skin="primary" value=' + list[i].dic_code + '>' + list[i].dic_value + '')
                     }
                     layui.use('form', function () {
                         var form = layui.form;
@@ -181,6 +185,8 @@
         var form = layui.form;
         //监听提交
         form.on('submit(formDemo)', function (data) {
+            console.log($("#booktype").val())
+            data.field.add($("#booktype").val());
             $.ajax({
                 url: "addbook",
                 data: data.field,

@@ -24,5 +24,19 @@ public interface BookDao {
 
     List<Book> queryBooksByPage(List<String> list, String bookname, String authorname);
 
-    int insertBooks(@Param("books") List<Object> books);
+    int insertBooks(@Param("books") List<Book> books);
+
+    int checkBook(String bookName, String author);
+
+    int updateBookAmount(String bookName, String author, String type);
+
+    int getTime(Book book);
+
+    int getBookAmount(int bid);
+
+    int updateBookAmountById(int bid);
+
+    void updateBookReserveById(int bid);
+
+    void updateBookReserveByBId(int bid);
 }
