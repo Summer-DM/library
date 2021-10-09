@@ -101,4 +101,7 @@
         set last_reserve = last_reserve + 1
         where bid = #{bid}
     </update>
+    <select id="getBookReserveById" resultType="java.lang.Integer">
+        select last_reserve from book where bid = #{bid}
+    </select>
 </mapper>

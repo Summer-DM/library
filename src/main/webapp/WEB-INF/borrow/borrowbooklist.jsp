@@ -161,9 +161,11 @@
             dateType: "JSON",
             success: function (ret) {
                 if (ret.code == 1) {
-                    //已借阅的图书 设置不可选
-                    $("#" + bid).css({"background": "#999", "border": "#999"});
-                    $("#" + bid).attr("disabled", true);
+                    if (ret.data == 0){
+                        //已借阅的图书 设置不可选
+                        $("#" + bid).css({"background": "#999", "border": "#999"});
+                        $("#" + bid).attr("disabled", true);
+                    }
                 }
             },
             error: function (ret) {

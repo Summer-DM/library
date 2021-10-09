@@ -100,4 +100,6 @@ public interface BookService {
     void updateBookReserveById(int bid);
 
     void updateBookReserveByBId(int bid);
+
+    int getBookReserveById(int bid);
 }

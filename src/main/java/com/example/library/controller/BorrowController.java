@@ -149,7 +149,10 @@ public class BorrowController {
         bookService.updateBookByBid(bid);
         //更新库存状态（总库存不变，剩余库存-1）
         bookService.updateBookReserveById(bid);
+        //查询剩库存
+        int bookReserve = bookService.getBookReserveById(bid);
         commonDateResult.setCode("1");
+        commonDateResult.setData(bookReserve);
         return commonDateResult;
     }
 }

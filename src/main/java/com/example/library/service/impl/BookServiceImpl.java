@@ -113,4 +113,10 @@ public class BookServiceImpl implements BookService {
     public void updateBookReserveByBId(int bid) {
         bDao.updateBookReserveByBId(bid);
     }
+
+    @Override
+    public int getBookReserveById(int bid) {
+        int result = bDao.getBookReserveById(bid);
+        return result;
+    }
 }

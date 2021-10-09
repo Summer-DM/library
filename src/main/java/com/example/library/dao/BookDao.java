@@ -39,4 +39,6 @@ public interface BookDao {
     void updateBookReserveById(int bid);
 
     void updateBookReserveByBId(int bid);
+
+    int getBookReserveById(int bid);
 }
