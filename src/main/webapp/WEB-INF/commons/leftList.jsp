@@ -35,6 +35,9 @@
         <li>
             <a href="http://localhost:8080/library/borrow/allBorrowbooks"><i class="icon-user"></i>借阅信息</a>
         </li>
+        <li>
+            <a href="http://localhost:8080/library/audit/auditIndex"><i class="icon-check"></i>审核管理</a>
+        </li>
     </ul>
     <ul id="nav" class="student" style="display: none">
         <li>
