@@ -35,7 +35,7 @@
 
                         <div class="widget">
                             <div class="widget-content">
-                                <table class="layui-hide" id="spaceApplyInfo"></table>
+                                <table class="layui-hide" id="spaceApplyInfo" lay-filter="spaceTableEvent"></table>
                                 <div class="fy-box" id="space" style="margin-left: 32%"></div>
                             </div>
                         </div>
@@ -53,6 +53,14 @@
 <jsp:include page="../commons/foot.jsp"></jsp:include>
 <!-- 快速回到顶部 -->
 <span class="totop"><a href="#"><i class="icon-chevron-up"></i></a></span>
+
+<!--弹窗-->
+<div id="pc-window" style="display: none" class="p20 monitor">
+    <div>
+        <span>213</span>
+    </div>
+    <div>323</div>
+</div>
 </body>
 </html>
 <script>
@@ -84,14 +92,14 @@
                             data: ret.list,
                             cols: [[
                                 {field: 'id', width: '10%', title: '编号', sort: true},
-                                {field: 'applicant', width: '20%', title: '申请人姓名'},
-                                {field: 'applied_classroom', title: '申请的图书室编号', width: '20%', sort: true},
+                                {field: 'applicant', width: '10%', title: '申请人姓名',event: 'showApplicantInfo',style:'cursor: pointer;color: blue;font-size: small;text-decoration:underline'},
+                                {field: 'applicant_id', width: '10%', title: '申请人学号', sort: true},
+                                {field: 'applied_classroom', title: '申请的图书室编号', width: '10%', sort: true},
                                 {field: 'create_time', width: '20%', title: '申请时间', sort: true},
-                                {field: 'reviewer', width: '20%', title: '审核人', sort: true},
+                                {field: 'reviewer', width: '15%', title: '审核人', sort: true},
                                 {field: 'approval_time', width: '20%', title: '审核通过时间', sort: true},
-                                {field: 'occupation_days', width: '20%', title: '使用时长（单位是天）', sort: true},
-                                {field: 'applicant_id', width: '20%', title: '申请人学号', sort: true},
-                                {field: 'approval_status', width: '20%', title: '审核状态'}
+                                {field: 'occupation_days', width: '15%', title: '使用时长（单位是天）', sort: true},
+                                {field: 'approval_status', width: '10%', title: '审核状态'}
                             ]],
                             done: function () {
                                 //分页
@@ -109,6 +117,23 @@
                                         }
                                     },
                                 });
+                            }
+                        });
+                        //监听单元格事件
+                        table.on('tool(spaceTableEvent)', function(obj){
+                            var data = obj.data;
+                            if(obj.event === 'showApplicantInfo'){
+                                layer.open({
+                                    type: 1,
+                                    area: ['540px', '460px'],
+                                    title: '温馨提示',
+                                    content: $("#pc-window").find('form').each(function () {
+                                        $(this).get(0).reset()
+                                    }).end(),
+                                    cancel: function () {
+                                        layer.closeAll();
+                                    }
+                                })
                             }
                         });
                     },

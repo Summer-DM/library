@@ -101,6 +101,26 @@
             <artifactId>poi</artifactId>
             <version>5.0.0</version>
         </dependency>
+        <!--方法一  jasypt 加解密-->
+        <!-- springboot对配置文件中敏感信息的加密 ENC()方法-->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>3.0.4</version>
+        </dependency>
+        <!--方法二   druid非对称加密-->
+        <!-- springboot对配置文件中敏感信息的加密 alibaba中druid的ConfigTools方法 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 
