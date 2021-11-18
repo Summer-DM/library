@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.library.dao.HobbyDao">
+    <resultMap id="hobbyResult" type="com.example.library.model.Hobby">
+        <result column="hobby" jdbcType="VARCHAR" property="hobby"
+                typeHandler="com.example.library.handler.MyBatisTypeHandler"></result>
+    </resultMap>
+    <select id="getHobbyById" parameterType="java.lang.Integer" resultType="com.example.library.model.Hobby"
+            resultMap="hobbyResult">
+        select *
+        from hobby
+        where id = #{id}
+    </select>
+    <insert id="insertHobby" parameterType="com.example.library.model.Hobby">
+        insert into hobby (id, hobby, userId)
+        values (#{id}, #{hobby,typeHandler=com.example.library.handler.MyBatisTypeHandler,jdbcType=VARCHAR}, #{userId})
+    </insert>
+</mapper>
