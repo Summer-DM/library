@@ -62,5 +62,35 @@ public class LibraryApplicationTests {
         } finally {
         }
     }
+    @Test
+    public void testSe() {
+        int i = sumSubString("2", "4");
+        System.out.println(i);
+        double v = calculate_it();
+        System.out.println(v);
+    }
+
+    private int sumSubString(String a, String b){
+        int sub = 0;
+        while (a.contains(b)){
+            sub++;
+            a = a.replaceFirst(b,"");
+        }
+        return sub;
+    }
+
+
+    public double calculate_it() {
+        double x = 0.0d;
+        double y = 0.0d;
+        int total = 0;
+        for (int i = 0; i < 7000000; i++) {
+            x = Math.random();
+            y = Math.random();
+            if (Math.sqrt(x * x + y * y) < 1)
+                total++;
+        }
+        return total / 7000000.0;
+    }
 
 }
